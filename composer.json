@@ -1,0 +1,45 @@
+{
+  "name": "eliashaeussler/cpanel-requests",
+  "description": "Small PHP library enabling requests to cPanel instances",
+  "type": "library",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Elias Häußler",
+      "email": "elias@haeussler.dev",
+      "homepage": "https://haeussler.dev",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "php": ">= 7.1 < 7.5",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.5",
+    "monolog/monolog": "^2.0",
+    "spomky-labs/otphp": "^9.1",
+    "symfony/console": "^4.2",
+    "symfony/finder": "^5.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.2",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "donatj/mock-webserver": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "EliasHaeussler\\CpanelRequests\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "EliasHaeussler\\CpanelRequests\\Tests\\": "tests"
+    }
+  },
+  "bin": "bin/cpanel-requests",
+  "scripts": {
+    "test": "phpunit -c phpunit.xml"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

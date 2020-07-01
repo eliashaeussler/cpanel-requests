@@ -1,0 +1,6 @@
+* text=auto
+
+/composer.lock export-ignore
+/tests export-ignore
+/phpunit.xml export-ignore
+/.gitlab-ci.yml export-ignore
