@@ -1,3 +1,4 @@
 /vendor/
 /temp/
 /.build/
+/composer.lock
