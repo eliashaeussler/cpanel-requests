@@ -60,15 +60,16 @@
     },
     "scripts": {
         "lint": [
-            "@lint:composer",
+            "@lint:composer:fix",
             "@lint:editorconfig:fix",
             "@lint:php:fix"
         ],
         "lint:composer": "@composer normalize --no-check-lock --no-update-lock",
+        "lint:composer:fix": "@lint:composer --dry-run",
         "lint:editorconfig": "ec",
         "lint:editorconfig:fix": "@lint:editorconfig --fix",
-        "lint:php": "php-cs-fixer",
-        "lint:php:fix": "@lint:php fix",
+        "lint:php": "php-cs-fixer fix --dry-run",
+        "lint:php:fix": "php-cs-fixer fix",
         "sca": [
             "@sca:php"
         ],

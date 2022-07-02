@@ -43,11 +43,11 @@ jobs:
 
       # Linting
       - name: Lint composer.json
-        run: composer lint:composer -- --dry-run
+        run: composer lint:composer
       - name: Lint Editorconfig
         run: composer lint:editorconfig
       - name: Lint PHP
-        run: composer lint:php -- --dry-run --format=checkstyle | cs2pr
+        run: composer lint:php -- --format=checkstyle | cs2pr
 
       # SCA
       - name: SCA PHP
