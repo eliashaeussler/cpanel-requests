@@ -43,6 +43,10 @@ The following authorization methods are currently available:
 at your cPanel instance. For this, you have to implement the interface
 [`Application\Authorization\AuthorizationInterface`](src/Application/Authorization/AuthorizationInterface.php).
 
+:warning: If you want to use two-factor authentication together with
+the HTTP session authorization method, you must require the
+`spomky-labs/otphp` package.
+
 ### Create a new [`CPanel`](src/Application/CPanel.php) instance
 
 Once you have selected an authentication method, you can create a
