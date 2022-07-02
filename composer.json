@@ -38,9 +38,9 @@
         "spomky-labs/otphp": "^11.0",
         "thecodingmachine/safe": "^2.0"
     },
-	"suggest": {
-		"spomky-labs/otphp": "Used for authentication via HTTP session (^11.0)"
-	},
+    "suggest": {
+        "spomky-labs/otphp": "Used for authentication via HTTP session (^11.0)"
+    },
     "autoload": {
         "psr-4": {
             "EliasHaeussler\\CpanelRequests\\": "src"
