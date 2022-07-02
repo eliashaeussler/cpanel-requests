@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,24 +21,26 @@ namespace EliasHaeussler\CpanelRequests\Http\Response;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+namespace EliasHaeussler\CpanelRequests\Http\Response;
+
 use Psr\Http\Message\ResponseInterface as PsrResponse;
 
 /**
- * Null response from server.
+ * NullResponse.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class NullResponse implements ResponseInterface
+final class NullResponse implements ResponseInterface
 {
-    /**
-     * @var PsrResponse
-     */
-    private $response;
+    public function __construct(
+        private readonly PsrResponse $response,
+    ) {
+    }
 
-    public function __construct(PsrResponse $response)
+    public static function supports(PsrResponse $response): bool
     {
-        $this->response = $response;
+        return true;
     }
 
     public function isValid(): bool
@@ -46,12 +48,12 @@ class NullResponse implements ResponseInterface
         return false;
     }
 
-    public function getData()
+    public function getData(): mixed
     {
         return null;
     }
 
-    public function getResponse(): PsrResponse
+    public function getOriginalResponse(): PsrResponse
     {
         return $this->response;
     }

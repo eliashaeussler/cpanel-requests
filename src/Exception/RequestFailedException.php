@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Exception;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,38 @@ namespace EliasHaeussler\CpanelRequests\Exception;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+namespace EliasHaeussler\CpanelRequests\Exception;
+
+use EliasHaeussler\CpanelRequests\Http;
+use Throwable;
+use function get_class;
+use function sprintf;
+
 /**
- * RequestFailed exception class.
+ * RequestFailedException.
  *
- * @package EliasHaeussler\CpanelRequests\Exception
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class RequestFailedException extends \Exception
+final class RequestFailedException extends Exception
 {
+    public static function create(Throwable $previousException): self
+    {
+        return new self(
+            'Error during API request: '.$previousException->getMessage(),
+            1589836385,
+            $previousException
+        );
+    }
+
+    /**
+     * @param class-string<Http\Response\ResponseInterface> $expected
+     */
+    public static function forUnexpectedResponse(string $expected, Http\Response\ResponseInterface $actual): self
+    {
+        return new self(
+            sprintf('Expected "%s", got "%s" instead.', $expected, get_class($actual)),
+            1592850467
+        );
+    }
 }
