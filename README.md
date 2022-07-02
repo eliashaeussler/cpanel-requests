@@ -2,6 +2,7 @@
 
 # cPanel Requests
 
+[![Coverage](https://codecov.io/gh/eliashaeussler/cpanel-requests/branch/bugfix/drop-develop-branch/graph/badge.svg?token=YZ3RQHSX4B)](https://codecov.io/gh/eliashaeussler/cpanel-requests)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1277cb80151c332d04ff/maintainability)](https://codeclimate.com/github/eliashaeussler/cpanel-requests/maintainability)
 [![Tests](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/tests.yaml/badge.svg)](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/tests.yaml)
 [![CGL](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/cgl.yaml/badge.svg)](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/cgl.yaml)
