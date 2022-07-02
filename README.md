@@ -84,12 +84,24 @@ available API modules and functions.
 
 ```php
 use EliasHaeussler\CpanelRequests\Application;
+use EliasHaeussler\CpanelRequests\Http;
 
-$authorization = new Application\Authorization\TokenAuthorization('bob', '9CKU401OH5WVDGSAVXN3UMLT8BJ5IY');
-$cPanel = new Application\CPanel($authorization, 'cpanel.bobs.site');
+$authorization = new Application\Authorization\TokenAuthorization(
+    username: 'bob',
+    token: '9CKU401OH5WVDGSAVXN3UMLT8BJ5IY',
+);
+$cPanel = new Application\CPanel(
+    authorization: $authorization,
+    host: 'cpanel.bobs.site',
+    port: 2083,
+    protocol: Http\Protocol::Https
+);
 
 // Fetch domains from cPanel API
-$response = $cPanel->api('DomainInfo', 'list_domains');
+$response = $cPanel->api(
+    module: 'DomainInfo',
+    function: 'list_domains',
+);
 
 if (!$response->isValid()) {
     throw new \RuntimeException('Got invalid response from cPanel application.');
