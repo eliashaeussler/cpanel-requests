@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Exception;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,21 @@ namespace EliasHaeussler\CpanelRequests\Exception;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+namespace EliasHaeussler\CpanelRequests\Exception;
+
 /**
- * AuthenticationFailed exception class.
+ * AuthenticationFailedException.
  *
- * @package EliasHaeussler\CpanelRequests\Exception
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class AuthenticationFailedException extends \Exception
+final class AuthenticationFailedException extends Exception
 {
+    public static function create(): self
+    {
+        return new self(
+            'Authentication failed. Please check your login credentials and try again.',
+            1544739118
+        );
+    }
 }

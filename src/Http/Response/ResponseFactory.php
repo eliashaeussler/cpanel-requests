@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,107 +21,81 @@ namespace EliasHaeussler\CpanelRequests\Http\Response;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\CpanelRequests\Exception\InvalidResponseDataException;
+namespace EliasHaeussler\CpanelRequests\Http\Response;
+
+use EliasHaeussler\CpanelRequests\Exception;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
+use function array_key_exists;
 
 /**
- * Factory to build response representations from server responses.
+ * ResponseFactory.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class ResponseFactory
+final class ResponseFactory
 {
-    private static $mapping = [
+    /**
+     * @var non-empty-array<string, class-string<ResponseInterface>>
+     */
+    private array $map = [
         'json' => JsonResponse::class,
         'web' => WebResponse::class,
     ];
-
-    private static $default = 'web';
+    private string $default = 'web';
 
     /**
-     * Create response from type or server response object.
-     *
-     * Returns a new representation of the given server response object. Determination of the
-     * resulting object will be done on basis of the given type. Otherwise, the default
-     * representation will be returned.
-     *
-     * @param string|null $type Server response type, e.g. `json` or `web` (default)
-     * @param PsrResponse $response Server response object
-     * @return ResponseInterface Representation of the given server response
-     * @throws InvalidResponseDataException if response data cannot be parsed
+     * @throws Exception\InvalidResponseDataException
      */
-    public static function create(?string $type, PsrResponse $response): ResponseInterface
+    public function create(string $type, PsrResponse $response): ResponseInterface
     {
-        $type = $type ?? static::$default;
         $normalizedType = strtolower(trim($type));
-        if (!array_key_exists($normalizedType, static::$mapping)) {
-            return static::makeInstance(NullResponse::class, $response);
+
+        if ($this->supports($normalizedType)) {
+            $className = $this->map[$normalizedType];
+        } else {
+            $className = NullResponse::class;
         }
-        $responseType = static::$mapping[$normalizedType];
-        return static::makeInstance($responseType, $response);
+
+        return $this->make($className, $response);
     }
 
     /**
-     * Create response from server response object.
-     *
-     * Returns a new representation of the given server response object. Determination of the
-     * resulting object will be done on basis of the given response object only. For this,
-     * the response type will be extracted from the response object.
-     *
-     * @param PsrResponse $response Server response object
-     * @return ResponseInterface Representation of the given server response
-     * @throws InvalidResponseDataException if response data cannot be parsed
+     * @throws Exception\InvalidResponseDataException
      */
-    public static function createFromResponse(PsrResponse $response): ResponseInterface
+    public function createFromResponse(PsrResponse $response): ResponseInterface
     {
-        $type = static::extractTypeFromResponse($response);
-        return static::create($type, $response);
-    }
+        $selectedType = $this->default;
 
-    /**
-     * Transform server response object to response type.
-     *
-     * Returns the resulting type of the given server response object. This can be either
-     * JSON or a default web response.
-     *
-     * @param PsrResponse $response Server response object
-     * @return string Transformed response type, either `json` or `web`
-     */
-    private static function extractTypeFromResponse(PsrResponse $response): string
-    {
-        // Check for JSON response
-        if (
-            ($response->hasHeader('Accept') && $response->getHeader('Accept')[0] ?? null === 'application/json') ||
-            ($response->hasHeader('Content-Type') && $response->getHeader('Content-Type')[0] ?? null === 'application/json')
-        ) {
-            return 'json';
+        /** @var ResponseInterface $className */
+        foreach ($this->map as $type => $className) {
+            if ($className::supports($response)) {
+                $selectedType = $type;
+                break;
+            }
         }
-        return static::$default;
+
+        return $this->create($selectedType, $response);
+    }
+
+    public function supports(string $type): bool
+    {
+        return array_key_exists($type, $this->map);
     }
 
     /**
-     * Instantiate response representation for given server response object.
+     * @param class-string<ResponseInterface> $className
      *
-     * Creates a new representation of the given server response object by the given class
-     * name. If the class is invalid, e.g. if it does not exist or does not implement the
-     * {@see ResponseInterface}, a representation of {@see NullResponse} will be returned.
-     *
-     * @param string $className Class name of the response representation to be initialized
-     * @param PsrResponse $response Server response object
-     * @return ResponseInterface Representation of the given server response object, can be
-     *                           an instance of {@see NullResponse} if the given class name
-     *                           is not valid
-     * @throws InvalidResponseDataException if response data cannot be parsed
+     * @throws Exception\InvalidResponseDataException
      */
-    private static function makeInstance(string $className, PsrResponse $response): ResponseInterface
+    private function make(string $className, PsrResponse $response): ResponseInterface
     {
+        // @codeCoverageIgnoreStart
         if (!class_exists($className)) {
             return new NullResponse($response);
         }
-        if (!in_array(ResponseInterface::class, class_implements($className), true)) {
-            return new NullResponse($response);
-        }
+        // @codeCoverageIgnoreEnd
+
         return new $className($response);
     }
 }

@@ -1,38 +1,68 @@
-[![Pipeline](https://gitlab.elias-haeussler.de/eliashaeussler/cpanel-requests/badges/master/pipeline.svg)](https://gitlab.elias-haeussler.de/eliashaeussler/cpanel-requests/-/pipelines)
-[![Coverage](https://gitlab.elias-haeussler.de/eliashaeussler/cpanel-requests/badges/master/coverage.svg)](https://gitlab.elias-haeussler.de/eliashaeussler/cpanel-requests/)
-
+<div align="center">
 
 # cPanel Requests
 
-A simple PHP project to make API requests on your [cPanel](https://cpanel.com/) installation. This allows you to
-call modules inside the installation and interact with them to add, show or list data such as domains, e-mail accounts,
-databases and so on.
+[![Maintainability](https://api.codeclimate.com/v1/badges/1277cb80151c332d04ff/maintainability)](https://codeclimate.com/github/eliashaeussler/cpanel-requests/maintainability)
+[![Tests](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/tests.yaml/badge.svg)](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/tests.yaml)
+[![CGL](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/cgl.yaml/badge.svg)](https://github.com/eliashaeussler/cpanel-requests/actions/workflows/cgl.yaml)
+[![Latest Stable Version](http://poser.pugx.org/eliashaeussler/cpanel-requests/v)](https://packagist.org/packages/eliashaeussler/cpanel-requests)
+[![Total Downloads](http://poser.pugx.org/eliashaeussler/cpanel-requests/downloads)](https://packagist.org/packages/eliashaeussler/cpanel-requests)
+[![License](http://poser.pugx.org/eliashaeussler/cpanel-requests/license)](LICENSE)
 
-**The project makes use of [UAPI](https://documentation.cpanel.net/display/DD/Guide+to+UAPI). Therefore, it is required
-to have a cPanel installation with at least version 42 running**.
+:package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/cpanel-requests) |
+:floppy_disk:&nbsp;[Repository](https://github.com/eliashaeussler/cpanel-requests) |
+:bug:&nbsp;[Issue tracker](https://github.com/eliashaeussler/cpanel-requests/issues)
 
+</div>
 
-## Installation
+A simple PHP project to make API requests on your [cPanel](https://cpanel.com/) installation.
+This allows you to call modules inside the installation and interact with them to add, show or
+list data such as domains, e-mail accounts, databases and so on.
 
-Install the project using Composer:
+**The project makes use of [UAPI](https://documentation.cpanel.net/display/DD/Guide+to+UAPI).
+Therefore, it is required to have a cPanel installation with at least version 42 running**.
+
+## :fire: Installation
 
 ```bash
 composer require eliashaeussler/cpanel-requests
 ```
 
+## :zap:Usage
 
-## Usage
+### Authorization
 
-Connect to your cPanel instance first:
+The following authorization methods are currently available:
+
+| Type                                               | Implementation class                                                                                   |
+|----------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| Authorization via [**API token**][1] (recommended) | [`Application\Authorization\TokenAuthorization`](src/Application/Authorization/TokenAuthorization.php) |
+| Authorization via [**HTTP session**][2]            | [`Application\Authorization\HttpAuthorization`](src/Application/Authorization/HttpAuthorization.php)   |
+
+:bulb: You can also provide your own implementation for authorization
+at your cPanel instance. For this, you have to implement the interface
+[`Application\Authorization\AuthorizationInterface`](src/Application/Authorization/AuthorizationInterface.php).
+
+### Create a new [`CPanel`](src/Application/CPanel.php) instance
+
+Once you have selected an authentication method, you can create a
+new [`Application\CPanel`](src/Application/CPanel.php) instance:
 
 ```php
-$cPanel = new \EliasHaeussler\CpanelRequests\Application\CPanel('example.com', 'admin', 'password');
-$cPanel->authorize();
+use EliasHaeussler\CpanelRequests\Application;
+
+/** @var Application\Authorization\AuthorizationInterface $authorization */
+$cPanel = new Application\CPanel($authorization, 'example.com', 2083);
 ```
+
+### Perform API requests
 
 Now you're able to make API requests:
 
 ```php
+use EliasHaeussler\CpanelRequests\Application;
+
+/** @var Application\CPanel $cPanel */
 $response = $cPanel->api('<module>', '<function>', ['optional' => 'parameters']);
 if ($response->isValid()) {
     // Do anything...
@@ -42,18 +72,16 @@ if ($response->isValid()) {
 
 **Note that currently only GET requests are supported.**
 
-Visit the [official documentation](https://documentation.cpanel.net/display/DD/Guide+to+UAPI)
-to get an overview about available API modules and functions.
+Visit the [official documentation][3] to get an overview about
+available API modules and functions.
 
-### Example API request
+## :bee: Example
 
 ```php
-$cPanel = new \EliasHaeussler\CpanelRequests\Application\CPanel('cpanel.example.com', 'user', 'password');
-$authorized = $cPanel->authorize();
+use EliasHaeussler\CpanelRequests\Application;
 
-if (!$authorized) {
-    throw new \RuntimeException('Could not authorize at cPanel application.');
-}
+$authorization = new Application\Authorization\TokenAuthorization('bob', '9CKU401OH5WVDGSAVXN3UMLT8BJ5IY');
+$cPanel = new Application\CPanel($authorization, 'cpanel.bobs.site');
 
 // Fetch domains from cPanel API
 $response = $cPanel->api('DomainInfo', 'list_domains');
@@ -63,27 +91,34 @@ if (!$response->isValid()) {
 }
 
 $domains = $response->getData()->data;
-echo 'My main domain is: ' . $domains->main_domain;
+echo 'Bob\'s main domain is: ' . $domains->main_domain;
 ```
 
+## :wastebasket: Cleanup
 
-## Command-line usage
-
-The project provides a console which can be used to execute several functions from the command line.
+The project provides a console application that can be used to execute
+several cleanup commands from the command line.
 
 ```bash
 # General usage
 vendor/bin/cpanel-requests
 
 # Clear expired request cookie files
-vendor/bin/cpanel-requests clear:cookie
-vendor/bin/cpanel-requests clear:cookie --lifetime 604800
+vendor/bin/cpanel-requests cleanup:cookies
+vendor/bin/cpanel-requests cleanup:cookies --lifetime 1800
 
 # Clear log files
-vendor/bin/cpanel-requests clear:logfile
+vendor/bin/cpanel-requests cleanup:logs
 ```
 
+## :technologist: Contributing
 
-## License
+Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-[GPL 3.0 or later](LICENSE)
+## :star: License
+
+This project is licensed under [GNU General Public License 3.0 (or later)](LICENSE).
+
+[1]: https://api.docs.cpanel.net/cpanel/tokens/
+[2]: https://api.docs.cpanel.net/cpanel/introduction/
+[3]: https://documentation.cpanel.net/display/DD/Guide+to+UAPI

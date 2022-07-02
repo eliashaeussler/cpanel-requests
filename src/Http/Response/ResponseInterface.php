@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,13 @@ namespace EliasHaeussler\CpanelRequests\Http\Response;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\CpanelRequests\Exception\InvalidResponseDataException;
+namespace EliasHaeussler\CpanelRequests\Http\Response;
+
+use EliasHaeussler\CpanelRequests\Exception;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
 
 /**
- * Interface describing response representations.
+ * ResponseInterface.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
@@ -33,39 +35,15 @@ use Psr\Http\Message\ResponseInterface as PsrResponse;
 interface ResponseInterface
 {
     /**
-     * Initialize and parse a given server response.
-     *
-     * Initializes a new response object by a given server response and parses the response data.
-     *
-     * @param PsrResponse $response Response from server
-     * @throws InvalidResponseDataException if response data cannot be parsed
+     * @throws Exception\InvalidResponseDataException
      */
     public function __construct(PsrResponse $response);
 
-    /**
-     * Check whether server returned a valid response.
-     *
-     * Determines whether the server response is valid and returns the result.
-     *
-     * @return bool `true` if server response is valid, `false` otherwise
-     */
+    public static function supports(PsrResponse $response): bool;
+
     public function isValid(): bool;
 
-    /**
-     * Get parsed server response data.
-     *
-     * Returns the parsed data from the current server response.
-     *
-     * @return mixed Parsed response data
-     */
-    public function getData();
+    public function getData(): mixed;
 
-    /**
-     * Get current server response object.
-     *
-     * Returns the current server response object.
-     *
-     * @return PsrResponse Current server response object
-     */
-    public function getResponse(): PsrResponse;
+    public function getOriginalResponse(): PsrResponse;
 }

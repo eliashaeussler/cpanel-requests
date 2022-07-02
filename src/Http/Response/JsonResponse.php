@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,78 +21,75 @@ namespace EliasHaeussler\CpanelRequests\Http\Response;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\CpanelRequests\Exception\InvalidResponseDataException;
+namespace EliasHaeussler\CpanelRequests\Http\Response;
+
+use EliasHaeussler\CpanelRequests\Exception;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
+use stdClass;
+use function str_starts_with;
 
 /**
- * JSON response from server.
+ * JsonResponse.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class JsonResponse implements ResponseInterface
+final class JsonResponse implements ResponseInterface
 {
-    /**
-     * @var PsrResponse
-     */
-    private $response;
+    private stdClass $data;
 
-    /**
-     * @var \stdClass
-     */
-    private $data;
-
-    public function __construct(PsrResponse $response)
-    {
-        $this->response = $response;
+    public function __construct(
+        private readonly PsrResponse $response,
+    ) {
         $this->data = $this->parseResponseData();
     }
 
-    /**
-     * @inheritDoc
-     * @throws InvalidResponseDataException if response data cannot be parsed as JSON
-     */
+    public static function supports(PsrResponse $response): bool
+    {
+        $mimeType = 'application/json';
+        $possibleHeaders = [
+            'Accept',
+            'Content-Type',
+        ];
+
+        foreach ($possibleHeaders as $header) {
+            if ($response->hasHeader($header) && str_starts_with($response->getHeader($header)[0], $mimeType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function isValid(string $dataKey = 'data'): bool
     {
         $data = $this->getData();
-        return property_exists($data, 'status') && $data->status === 1 && property_exists($data, $dataKey);
+
+        return property_exists($data, 'status') && 1 === $data->status && property_exists($data, $dataKey);
     }
 
-    /**
-     * @inheritDoc
-     * @throws InvalidResponseDataException if response data cannot be parsed as JSON
-     */
-    public function getData(): \stdClass
+    public function getData(): stdClass
     {
-        if ($this->data === null) {
-            $this->data = $this->parseResponseData();
-        }
         return $this->data;
     }
 
-    public function getResponse(): PsrResponse
+    public function getOriginalResponse(): PsrResponse
     {
         return $this->response;
     }
 
     /**
-     * Parse response data as JSON.
-     *
-     * Parses the data from the current response and returns its object representation.
-     *
-     * @return \stdClass Parsed response data
-     * @throws InvalidResponseDataException if response data cannot be parsed as JSON
+     * @throws Exception\InvalidResponseDataException
      */
-    private function parseResponseData(): \stdClass
+    private function parseResponseData(): stdClass
     {
-        $responseBody = (string)$this->response->getBody();
-        $responseData = json_decode($responseBody);
-        if ($responseData === null) {
-            throw new InvalidResponseDataException(
-                'Request failed. Please check the request URL and try again.',
-                1544739719
-            );
+        $responseBody = (string) $this->response->getBody();
+        $responseData = json_decode($responseBody, flags: JSON_THROW_ON_ERROR);
+
+        if (!($responseData instanceof stdClass)) {
+            throw Exception\InvalidResponseDataException::create();
         }
+
         return $responseData;
     }
 }

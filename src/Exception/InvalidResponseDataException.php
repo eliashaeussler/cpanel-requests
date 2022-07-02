@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Exception;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,12 +21,21 @@ namespace EliasHaeussler\CpanelRequests\Exception;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+namespace EliasHaeussler\CpanelRequests\Exception;
+
 /**
- * InvalidResponseDataException exception class.
+ * InvalidResponseDataException.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class InvalidResponseDataException extends \Exception
+final class InvalidResponseDataException extends Exception
 {
+    public static function create(): self
+    {
+        return new self(
+            'Request failed. Please check the request URL and try again.',
+            1544739719
+        );
+    }
 }

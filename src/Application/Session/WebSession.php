@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
-namespace EliasHaeussler\CpanelRequests\Application\Session;
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,9 +21,14 @@ namespace EliasHaeussler\CpanelRequests\Application\Session;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\CpanelRequests\Application\ApplicationInterface;
-use EliasHaeussler\CpanelRequests\Exception\InactiveSessionException;
-use EliasHaeussler\CpanelRequests\Exception\RequestFailedException;
+namespace EliasHaeussler\CpanelRequests\Application\Session;
+
+use EliasHaeussler\CpanelRequests\Exception;
+use EliasHaeussler\CpanelRequests\Http;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7;
+use Psr\Http\Client;
+use Psr\Http\Message;
 
 /**
  * Representation of a web session of a single application.
@@ -31,56 +36,87 @@ use EliasHaeussler\CpanelRequests\Exception\RequestFailedException;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-class WebSession implements SessionInterface
+final class WebSession
 {
-    /**
-     * @var string
-     */
-    private $identifier;
+    private const SESSION_TOKEN_PARAMETER = 'security_token';
+
+    private bool $active;
+    private Http\UriBuilder\SessionBasedUriBuilder $uriBuilder;
+    private Message\RequestFactoryInterface $requestFactory;
+    private Http\Response\ResponseFactory $responseFactory;
+    private GuzzleClient $client;
+    private ?string $identifier = null;
+
+    public function __construct(
+        private readonly Message\UriInterface $baseUri,
+    ) {
+        $this->active = false;
+        $this->uriBuilder = new Http\UriBuilder\SessionBasedUriBuilder($this);
+        $this->requestFactory = new Psr7\HttpFactory();
+        $this->responseFactory = new Http\Response\ResponseFactory();
+        $this->client = new GuzzleClient();
+    }
 
     /**
-     * @var ApplicationInterface
+     * @throws Client\ClientExceptionInterface
+     * @throws Exception\AuthenticationFailedException
+     * @throws Exception\InvalidResponseDataException
+     * @throws Exception\RequestFailedException
      */
-    private $application;
-
-    /**
-     * @var bool
-     */
-    private $active;
-
-    /**
-     * @param string $identifier
-     * @param ApplicationInterface $application
-     * @param bool $active
-     * @throws InactiveSessionException if session identifier does not belong to an active session
-     */
-    public function __construct(string $identifier, ApplicationInterface $application, bool $active = true)
+    public function start(string $username, string $password, ?string $otp = null): void
     {
-        $this->identifier = $identifier;
-        $this->application = $application;
-        $this->active = $active;
+        // Build request object
+        $request = new Http\Request\ApiRequest($this->baseUri, 'login');
+        $request->setParameters([
+            'login_only' => 1,
+            'user' => $username,
+            'pass' => $password,
+        ]);
+
+        if (null !== $otp) {
+            $request->addParameter('tfa_token', $otp);
+        }
+
+        // Send authentication request
+        $uriBuilder = new Http\UriBuilder\DefaultUriBuilder();
+        $uri = $uriBuilder->buildUriForRequest($request);
+        $response = $this->sendRequest('GET', $uri);
+
+        // Throw exception if response is no JSON response
+        if (!($response instanceof Http\Response\JsonResponse)) {
+            throw Exception\RequestFailedException::forUnexpectedResponse(Http\Response\JsonResponse::class, $response);
+        }
+
+        // Throw exception if API response is not valid
+        if (!$response->isValid(self::SESSION_TOKEN_PARAMETER)) {
+            throw Exception\AuthenticationFailedException::create();
+        }
+
+        $this->active = true;
+        $this->identifier = $response->getData()->{self::SESSION_TOKEN_PARAMETER};
+
         $this->validateIdentifier();
     }
 
-    public function start(): SessionInterface
-    {
-        if ($this->active) {
-            return $this;
-        }
-        return $this->application->authorize()->getSession();
-    }
-
     /**
-     * @inheritDoc
-     * @throws RequestFailedException if exception occurs during application logout request
+     * @throws Exception\InvalidResponseDataException
+     * @throws Client\ClientExceptionInterface
      */
-    public function stop(): SessionInterface
+    public function stop(): bool
     {
-        if ($this->active) {
-            $this->application->logout();
+        if (!$this->active) {
+            return true;
+        }
+
+        $request = new Http\Request\ApiRequest($this->baseUri, 'logout');
+        $uri = $this->uriBuilder->buildUriForRequest($request);
+        $response = $this->sendRequest('GET', $uri);
+
+        if ($response->isValid()) {
             $this->active = false;
         }
-        return $this;
+
+        return !$this->active;
     }
 
     public function isActive(): bool
@@ -88,41 +124,29 @@ class WebSession implements SessionInterface
         return $this->active;
     }
 
-    public function setActive(bool $active): WebSession
-    {
-        $this->active = $active;
-        return $this;
-    }
-
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier): self
+    /**
+     * @throws Client\ClientExceptionInterface
+     */
+    private function sendRequest(string $method, Message\UriInterface $uri): Http\Response\ResponseInterface
     {
-        $this->identifier = $identifier;
-        return $this;
+        $request = $this->requestFactory->createRequest($method, $uri);
+        $response = $this->client->sendRequest($request);
+
+        return $this->responseFactory->createFromResponse($response);
     }
 
-    /**
-     * Validate session identifier by predefined rule set.
-     *
-     * @throws InactiveSessionException if given session identifier is invalid
-     */
-    protected function validateIdentifier(): void
+    private function validateIdentifier(): void
     {
-        if ($this->identifier === null) {
-            throw new InactiveSessionException('No session identifier given.', 1592848420);
+        if (null === $this->identifier) {
+            throw Exception\SessionException::forInactiveSession();
         }
-        if (!is_string($this->identifier)) {
-            throw new \InvalidArgumentException(
-                sprintf('Session identifier must be a valid string, "%s" given.', gettype($this->identifier)),
-                1592848455
-            );
-        }
-        if (trim($this->identifier) === '') {
-            throw new \InvalidArgumentException('Session identifier must not be empty.', 1592848476);
+        if ('' === trim($this->identifier)) {
+            throw Exception\SessionException::forInvalidSessionIdentifier();
         }
     }
 }

@@ -1,11 +1,12 @@
 #!/usr/bin/env php
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,9 +22,8 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../../vendor/autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+foreach ([__DIR__.'/../../../autoload.php', __DIR__.'/../../vendor/autoload.php', __DIR__.'/../vendor/autoload.php'] as $file) {
     if (file_exists($file)) {
-        /** @noinspection PhpIncludeInspection */
         require_once $file;
         break;
     }
@@ -32,17 +32,18 @@ if (!class_exists('Composer\\Autoload\\ClassLoader')) {
     throw new \RuntimeException('Could not locate Composer autoloader.', 1593550498);
 }
 
-use EliasHaeussler\CpanelRequests\Command\ClearCookieCommand;
-use EliasHaeussler\CpanelRequests\Command\ClearLogFileCommand;
+use EliasHaeussler\CpanelRequests\Command\CleanupCookiesCommand;
+use EliasHaeussler\CpanelRequests\Command\CleanupLogsCommand;
 use Symfony\Component\Console\Application;
 
 // Create application
 $app = new Application('cPanel Requests console');
 
 // Register commands
-$app->add(new ClearCookieCommand());
-$app->add(new ClearLogFileCommand());
+$app->add(new CleanupCookiesCommand());
+$app->add(new CleanupLogsCommand());
 
 // Run application
-/** @noinspection PhpUnhandledExceptionInspection */
-$app->run();
+$exitCode = $app->run();
+
+exit($exitCode);
