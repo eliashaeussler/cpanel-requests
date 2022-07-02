@@ -29,11 +29,15 @@ jobs:
 
       # Install dependencies
       - name: Install Composer dependencies
-        run: composer update --no-progress
+        run: composer require --no-progress spomky-labs/otphp:"^11.0"
 
       # Check Composer dependencies
       - name: Check dependencies
         run: composer-require-checker check
+      - name: Reset composer.json
+        run: |
+          git checkout composer.json
+          composer update --no-progress
       - name: Check for unused dependencies
         run: composer-unused
 
