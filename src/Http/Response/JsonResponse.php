@@ -24,8 +24,10 @@ declare(strict_types=1);
 namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 use EliasHaeussler\CpanelRequests\Exception;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
 use stdClass;
+use function json_decode;
 use function str_starts_with;
 
 /**
@@ -52,13 +54,26 @@ final class JsonResponse implements ResponseInterface
             'Content-Type',
         ];
 
+        // Test for expected mime type in response headers
         foreach ($possibleHeaders as $header) {
             if ($response->hasHeader($header) && str_starts_with($response->getHeader($header)[0], $mimeType)) {
                 return true;
             }
         }
 
-        return false;
+        // Fetch response body
+        $body = $response->getBody();
+        $content = (string) $body;
+        $body->rewind();
+
+        // Try to JSON-decode response body
+        try {
+            $json = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+
+            return $json instanceof stdClass;
+        } catch (JsonException) {
+            return false;
+        }
     }
 
     public function isValid(string $dataKey = 'data'): bool
