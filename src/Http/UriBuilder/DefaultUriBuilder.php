@@ -30,6 +30,7 @@ use function array_merge;
 use function explode;
 use function http_build_query;
 use function implode;
+use function ltrim;
 use function parse_str;
 
 /**
@@ -52,7 +53,7 @@ final class DefaultUriBuilder implements UriBuilderInterface
         parse_str($request->getBaseUri()->getQuery(), $queryParams);
 
         return $request->getBaseUri()
-            ->withPath('/'.$path)
+            ->withPath('/'.ltrim($path, '/'))
             ->withQuery(http_build_query($queryParams + $request->getParameters()))
         ;
     }

@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
 
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
+use function ltrim;
 
 /**
  * TokenBasedUriBuilder.
@@ -47,7 +48,7 @@ final class TokenBasedUriBuilder implements UriBuilderInterface
         parse_str($request->getBaseUri()->getQuery(), $queryParams);
 
         return $request->getBaseUri()
-            ->withPath('/'.$path)
+            ->withPath('/'.ltrim($path, '/'))
             ->withQuery(http_build_query($queryParams + $request->getParameters()))
         ;
     }
