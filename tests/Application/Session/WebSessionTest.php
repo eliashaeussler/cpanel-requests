@@ -138,23 +138,6 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
     /**
      * @test
      */
-    public function stopKeepsSessionActiveOnFailedLogout(): void
-    {
-        self::createMockResponse(['status' => 1, 'security_token' => '123']);
-
-        $this->subject->start('foo', 'bar');
-
-        self::assertTrue($this->subject->isActive());
-
-        self::createMockResponse('Failed.', statusCode: 400);
-
-        self::assertFalse($this->subject->stop());
-        self::assertTrue($this->subject->isActive());
-    }
-
-    /**
-     * @test
-     */
     public function stopClosesSessionOnSuccessfulLogout(): void
     {
         self::createMockResponse(['status' => 1, 'security_token' => '123']);

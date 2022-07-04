@@ -117,9 +117,11 @@ final class WebSession
         $uri = $this->uriBuilder->buildUriForRequest($request);
         $response = $this->sendRequest('GET', $uri);
 
+        // @codeCoverageIgnoreStart
         if ($response->isValid()) {
             $this->active = false;
         }
+        // @codeCoverageIgnoreEnd
 
         return !$this->active;
     }
