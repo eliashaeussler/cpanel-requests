@@ -26,7 +26,6 @@ namespace EliasHaeussler\CpanelRequests\Application\Authorization;
 use EliasHaeussler\CpanelRequests\Application;
 use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
-use EliasHaeussler\CpanelRequests\Resource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie;
 use GuzzleHttp\Psr7;
@@ -34,6 +33,7 @@ use GuzzleHttp\RequestOptions;
 use OTPHP\TOTP;
 use Psr\Http\Client as PsrClient;
 use Psr\Http\Message;
+use function assert;
 use function is_string;
 use function register_shutdown_function;
 
@@ -49,7 +49,6 @@ final class HttpAuthorization implements AuthorizationInterface
     private Message\RequestFactoryInterface $requestFactory;
     private ?Http\UriBuilder\UriBuilderInterface $uriBuilder = null;
     private ?Application\Session\WebSession $session = null;
-    private Resource\File $cookie;
 
     public function __construct(
         private readonly string $username,
@@ -58,7 +57,6 @@ final class HttpAuthorization implements AuthorizationInterface
     ) {
         $this->client = new Client();
         $this->requestFactory = new Psr7\HttpFactory();
-        $this->cookie = Resource\Cookie::create();
     }
 
     public function sendAuthorizedRequest(
@@ -68,9 +66,10 @@ final class HttpAuthorization implements AuthorizationInterface
     ): Message\ResponseInterface {
         // Assure active session exists
         $this->login($request->getBaseUri());
+        assert($this->session instanceof Application\Session\WebSession);
 
         // Add cookie file
-        $cookieJar = new Cookie\FileCookieJar($this->cookie->getPathname(), true);
+        $cookieJar = new Cookie\FileCookieJar($this->session->getCookie()->getPathname(), true);
         $options[RequestOptions::COOKIES] = $cookieJar;
 
         // Create URI
@@ -106,9 +105,7 @@ final class HttpAuthorization implements AuthorizationInterface
             return;
         }
 
-        if (true === $this->session?->stop()) {
-            $this->cookie->remove();
-        }
+        $this->session?->stop();
     }
 
     private function hasActiveSession(): bool
