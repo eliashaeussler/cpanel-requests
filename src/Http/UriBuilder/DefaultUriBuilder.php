@@ -44,6 +44,7 @@ final class DefaultUriBuilder implements UriBuilderInterface
     {
         $basePath = $request->getBaseUri()->getPath();
         $pathSegments = array_merge(explode('/', $basePath), [
+            'execute',
             $request->getModule(),
             $request->getFunction(),
         ]);
