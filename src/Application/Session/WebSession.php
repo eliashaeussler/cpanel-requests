@@ -25,8 +25,11 @@ namespace EliasHaeussler\CpanelRequests\Application\Session;
 
 use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
+use EliasHaeussler\CpanelRequests\Resource;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Cookie;
 use GuzzleHttp\Psr7;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Client;
 use Psr\Http\Message;
 
@@ -45,6 +48,7 @@ final class WebSession
     private Message\RequestFactoryInterface $requestFactory;
     private Http\Response\ResponseFactory $responseFactory;
     private GuzzleClient $client;
+    private Resource\File $cookie;
     private ?string $identifier = null;
 
     public function __construct(
@@ -55,6 +59,7 @@ final class WebSession
         $this->requestFactory = new Psr7\HttpFactory();
         $this->responseFactory = new Http\Response\ResponseFactory();
         $this->client = new GuzzleClient();
+        $this->cookie = Resource\Cookie::create();
     }
 
     /**
@@ -124,6 +129,11 @@ final class WebSession
         return $this->active;
     }
 
+    public function getCookie(): Resource\File
+    {
+        return $this->cookie;
+    }
+
     public function getIdentifier(): ?string
     {
         return $this->identifier;
@@ -134,8 +144,15 @@ final class WebSession
      */
     private function sendRequest(string $method, Message\UriInterface $uri): Http\Response\ResponseInterface
     {
+        // Add cookie file
+        $cookieJar = new Cookie\FileCookieJar($this->cookie->getPathname(), true);
+        $options = [
+            RequestOptions::COOKIES => $cookieJar,
+        ];
+
+        // Send request
         $request = $this->requestFactory->createRequest($method, $uri);
-        $response = $this->client->sendRequest($request);
+        $response = $this->client->send($request, $options);
 
         return $this->responseFactory->createFromResponse($response);
     }
