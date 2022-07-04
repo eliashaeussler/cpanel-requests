@@ -71,7 +71,7 @@ use EliasHaeussler\CpanelRequests\Application;
 $response = $cPanel->api('<module>', '<function>', ['optional' => 'parameters']);
 if ($response->isValid()) {
     // Do anything...
-    // Returned data can be fetched using $response->getData()
+    // Response data can be fetched using $response->getData()
 }
 ```
 
@@ -94,7 +94,7 @@ $cPanel = new Application\CPanel(
     authorization: $authorization,
     host: 'cpanel.bobs.site',
     port: 2083,
-    protocol: Http\Protocol::Https
+    protocol: Http\Protocol::Https,
 );
 
 // Fetch domains from cPanel API
