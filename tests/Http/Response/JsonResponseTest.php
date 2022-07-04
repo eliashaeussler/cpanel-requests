@@ -68,13 +68,24 @@ final class JsonResponseTest extends Framework\TestCase
 
     /**
      * @test
-     * @dataProvider supportsReturnsTrueIfGivenResponseCanBeHandledDataProvider
+     * @dataProvider supportsReturnsTrueIfResponseHeadersContainSupportedMimeTypeDataProvider
      *
      * @param array{Accept?: string, Content-Type?: string} $headers
      */
-    public function supportsReturnsTrueIfGivenResponseCanBeHandled(array $headers, bool $expected): void
+    public function supportsReturnsTrueIfResponseHeadersContainSupportedMimeType(array $headers, bool $expected): void
     {
         $response = new Psr7\Response(headers: $headers);
+
+        self::assertSame($expected, Http\Response\JsonResponse::supports($response));
+    }
+
+    /**
+     * @test
+     * @dataProvider supportsReturnsTrueIfResponseBodyCanBeJsonDecodedDataProvider
+     */
+    public function supportsReturnsTrueIfResponseBodyCanBeJsonDecoded(string $body, bool $expected): void
+    {
+        $response = new Psr7\Response(body: $body);
 
         self::assertSame($expected, Http\Response\JsonResponse::supports($response));
     }
@@ -105,7 +116,7 @@ final class JsonResponseTest extends Framework\TestCase
     /**
      * @return Generator<string, array{array{Accept?: string, Content-Type?: string}, bool}>
      */
-    public function supportsReturnsTrueIfGivenResponseCanBeHandledDataProvider(): Generator
+    public function supportsReturnsTrueIfResponseHeadersContainSupportedMimeTypeDataProvider(): Generator
     {
         $mimeType = 'application/json';
 
@@ -114,5 +125,15 @@ final class JsonResponseTest extends Framework\TestCase
         yield '"Content-Type" header' => [['Content-Type' => $mimeType], true];
         yield '"Accept" and "Content-Type" header' => [['Accept' => $mimeType, 'Content-Type' => $mimeType], true];
         yield 'supported header with additional metadata' => [['Content-Type' => $mimeType.'; charset=utf-8'], true];
+    }
+
+    /**
+     * @return Generator<string, array{string, bool}>
+     */
+    public function supportsReturnsTrueIfResponseBodyCanBeJsonDecodedDataProvider(): Generator
+    {
+        yield 'no JSON' => ['foo', false];
+        yield 'unsupported JSON' => ['"foo"', false];
+        yield 'supported JSON' => ['{"foo":"bar"}', true];
     }
 }
