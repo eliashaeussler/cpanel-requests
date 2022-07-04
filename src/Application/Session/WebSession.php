@@ -44,7 +44,7 @@ final class WebSession
     private const SESSION_TOKEN_PARAMETER = 'security_token';
 
     private bool $active;
-    private Http\UriBuilder\SessionBasedUriBuilder $uriBuilder;
+    private Http\UriBuilder\DefaultUriBuilder $uriBuilder;
     private Message\RequestFactoryInterface $requestFactory;
     private Http\Response\ResponseFactory $responseFactory;
     private GuzzleClient $client;
@@ -55,7 +55,7 @@ final class WebSession
         private readonly Message\UriInterface $baseUri,
     ) {
         $this->active = false;
-        $this->uriBuilder = new Http\UriBuilder\SessionBasedUriBuilder($this);
+        $this->uriBuilder = new Http\UriBuilder\DefaultUriBuilder();
         $this->requestFactory = new Psr7\HttpFactory();
         $this->responseFactory = new Http\Response\ResponseFactory();
         $this->client = new GuzzleClient();
@@ -83,8 +83,7 @@ final class WebSession
         }
 
         // Send authentication request
-        $uriBuilder = new Http\UriBuilder\DefaultUriBuilder();
-        $uri = $uriBuilder->buildUriForRequest($request);
+        $uri = $this->uriBuilder->buildUriForRequest($request);
         $response = $this->sendRequest('GET', $uri);
 
         // Throw exception if response is no JSON response
