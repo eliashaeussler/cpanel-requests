@@ -192,11 +192,11 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
     {
         yield 'without OTP' => [
             null,
-            ['path' => '/login', 'query' => 'login_only=1&user=foo&pass=bar'],
+            ['path' => '/execute/login', 'query' => 'login_only=1&user=foo&pass=bar'],
         ];
         yield 'with OTP' => [
             '123456',
-            ['path' => '/login', 'query' => 'login_only=1&user=foo&pass=bar&tfa_token=123456'],
+            ['path' => '/execute/login', 'query' => 'login_only=1&user=foo&pass=bar&tfa_token=123456'],
         ];
     }
 }

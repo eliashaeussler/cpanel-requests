@@ -69,7 +69,7 @@ final class SessionBasedUriBuilderTest extends Tests\MockServerAwareTestCase
         Message\UriInterface $baseUri,
         string $expected
     ): void {
-        self::createMockResponse(['status' => 1, 'security_token' => '123'], requestPath: '/login');
+        self::createMockResponse(['status' => 1, 'security_token' => '123'], requestPath: '/execute/login');
         self::createMockResponse(['status' => 1, 'data' => ['foo' => 'bar']]);
 
         $this->session->start('foo', 'bar');
