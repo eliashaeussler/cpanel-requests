@@ -39,7 +39,7 @@ use function sprintf;
 final class TokenAuthorization implements AuthorizationInterface
 {
     private Message\RequestFactoryInterface $requestFactory;
-    private Http\UriBuilder\DefaultUriBuilder $uriBuilder;
+    private Http\UriBuilder\TokenBasedUriBuilder $uriBuilder;
     private Client $client;
 
     public function __construct(
@@ -47,7 +47,7 @@ final class TokenAuthorization implements AuthorizationInterface
         private readonly string $token,
     ) {
         $this->requestFactory = new Psr7\HttpFactory();
-        $this->uriBuilder = new Http\UriBuilder\DefaultUriBuilder();
+        $this->uriBuilder = new Http\UriBuilder\TokenBasedUriBuilder();
         $this->client = $this->createClient();
     }
 

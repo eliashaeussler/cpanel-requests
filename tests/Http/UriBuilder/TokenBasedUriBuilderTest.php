@@ -30,18 +30,18 @@ use PHPUnit\Framework;
 use Psr\Http\Message;
 
 /**
- * DefaultUriBuilderTest.
+ * TokenBasedUriBuilderTest.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-final class DefaultUriBuilderTest extends Framework\TestCase
+final class TokenBasedUriBuilderTest extends Framework\TestCase
 {
-    protected Http\UriBuilder\DefaultUriBuilder $subject;
+    protected Http\UriBuilder\TokenBasedUriBuilder $subject;
 
     protected function setUp(): void
     {
-        $this->subject = new Http\UriBuilder\DefaultUriBuilder();
+        $this->subject = new Http\UriBuilder\TokenBasedUriBuilder();
     }
 
     /**
@@ -66,9 +66,9 @@ final class DefaultUriBuilderTest extends Framework\TestCase
     {
         $baseUri = new Psr7\Uri('http://example.org');
 
-        yield 'protocol and host only' => [$baseUri, 'http://example.org/foo/bar?hello=world'];
-        yield 'with additional base path' => [$baseUri->withPath('/dummy'), 'http://example.org/dummy/foo/bar?hello=world'];
-        yield 'with additional query params' => [$baseUri->withQuery('foo=baz'), 'http://example.org/foo/bar?foo=baz&hello=world'];
-        yield 'with additional fragment' => [$baseUri->withFragment('boo'), 'http://example.org/foo/bar?hello=world#boo'];
+        yield 'protocol and host only' => [$baseUri, 'http://example.org/execute/foo/bar?hello=world'];
+        yield 'with additional base path' => [$baseUri->withPath('/dummy'), 'http://example.org/dummy/execute/foo/bar?hello=world'];
+        yield 'with additional query params' => [$baseUri->withQuery('foo=baz'), 'http://example.org/execute/foo/bar?foo=baz&hello=world'];
+        yield 'with additional fragment' => [$baseUri->withFragment('boo'), 'http://example.org/execute/foo/bar?hello=world#boo'];
     }
 }

@@ -25,25 +25,20 @@ namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
 
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
-use function array_filter;
-use function array_merge;
-use function explode;
-use function http_build_query;
-use function implode;
-use function parse_str;
 
 /**
- * DefaultUriBuilder.
+ * TokenBasedUriBuilder.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-final class DefaultUriBuilder implements UriBuilderInterface
+final class TokenBasedUriBuilder implements UriBuilderInterface
 {
     public function buildUriForRequest(Http\Request\ApiRequest $request): Message\UriInterface
     {
         $basePath = $request->getBaseUri()->getPath();
         $pathSegments = array_merge(explode('/', $basePath), [
+            'execute',
             $request->getModule(),
             $request->getFunction(),
         ]);
