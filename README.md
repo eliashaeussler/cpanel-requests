@@ -29,6 +29,10 @@ Therefore, it is required to have a cPanel installation with at least version 42
 composer require eliashaeussler/cpanel-requests
 ```
 
+:warning: If you want to use two-factor authentication together with
+the HTTP session [authorization](#authorization) method, you must
+**manually require the `spomky-labs/otphp` package**.
+
 ## :zap:Usage
 
 ### Authorization
@@ -43,10 +47,6 @@ The following authorization methods are currently available:
 :bulb: You can also provide your own implementation for authorization
 at your cPanel instance. For this, you have to implement the interface
 [`Application\Authorization\AuthorizationInterface`](src/Application/Authorization/AuthorizationInterface.php).
-
-:warning: If you want to use two-factor authentication together with
-the HTTP session authorization method, you must require the
-`spomky-labs/otphp` package.
 
 ### Create a new [`CPanel`](src/Application/CPanel.php) instance
 
