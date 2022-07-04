@@ -30,6 +30,7 @@ use Psr\Http\Message;
 use function array_filter;
 use function http_build_query;
 use function implode;
+use function ltrim;
 
 /**
  * SessionBasedUriBuilder.
@@ -62,7 +63,7 @@ final class SessionBasedUriBuilder implements UriBuilderInterface
         parse_str($request->getBaseUri()->getQuery(), $queryParams);
 
         return $request->getBaseUri()
-            ->withPath('/'.$path)
+            ->withPath('/'.ltrim($path, '/'))
             ->withQuery(http_build_query($queryParams + $request->getParameters()))
         ;
     }
