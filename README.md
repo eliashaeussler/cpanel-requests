@@ -120,11 +120,11 @@ several cleanup commands from the command line.
 # General usage
 vendor/bin/cpanel-requests
 
-# Clear expired request cookie files
+# Remove expired request cookie files (default lifetime: 1 hour)
 vendor/bin/cpanel-requests cleanup:cookies
 vendor/bin/cpanel-requests cleanup:cookies --lifetime 1800
 
-# Clear log files
+# Remove log files
 vendor/bin/cpanel-requests cleanup:logs
 ```
 
