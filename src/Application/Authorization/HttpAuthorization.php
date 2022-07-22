@@ -92,7 +92,7 @@ final class HttpAuthorization implements AuthorizationInterface
         $this->session->start($this->username, $this->password, $this->getOTP());
 
         // Perform logout on shutdown
-        register_shutdown_function(fn () => $this->logout());
+        register_shutdown_function($this->logout(...));
     }
 
     /**
