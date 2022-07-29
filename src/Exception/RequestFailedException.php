@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Exception;
 
 use EliasHaeussler\CpanelRequests\Http;
 use Throwable;
+
 use function get_class;
 use function sprintf;
 

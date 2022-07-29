@@ -26,6 +26,7 @@ namespace EliasHaeussler\CpanelRequests\Tests\Resource;
 use EliasHaeussler\CpanelRequests\Resource;
 use PHPUnit\Framework;
 use Symfony\Component\Filesystem;
+
 use function sys_get_temp_dir;
 
 /**

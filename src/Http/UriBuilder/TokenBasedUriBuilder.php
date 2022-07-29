@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
 
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
+
 use function ltrim;
 
 /**

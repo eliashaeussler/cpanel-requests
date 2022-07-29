@@ -28,6 +28,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message;
+
 use function sprintf;
 
 /**

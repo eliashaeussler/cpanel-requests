@@ -27,6 +27,7 @@ use EliasHaeussler\CpanelRequests\Exception;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
 use stdClass;
+
 use function json_decode;
 use function str_starts_with;
 

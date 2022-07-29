@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Http\Response;
 
 use EliasHaeussler\CpanelRequests\Exception;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
+
 use function array_key_exists;
 
 /**

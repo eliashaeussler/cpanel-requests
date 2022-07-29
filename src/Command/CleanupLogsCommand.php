@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Command;
 
 use EliasHaeussler\CpanelRequests\Resource;
 use Symfony\Component\Console;
+
 use function count;
 
 /**

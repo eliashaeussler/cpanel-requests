@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Command;
 
 use EliasHaeussler\CpanelRequests\Resource;
 use Symfony\Component\Console;
+
 use function array_map;
 use function count;
 use function is_numeric;

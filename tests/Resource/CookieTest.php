@@ -25,6 +25,7 @@ namespace EliasHaeussler\CpanelRequests\Tests\Resource;
 
 use EliasHaeussler\CpanelRequests\Resource;
 use PHPUnit\Framework;
+
 use function array_pop;
 use function iterator_to_array;
 use function sleep;

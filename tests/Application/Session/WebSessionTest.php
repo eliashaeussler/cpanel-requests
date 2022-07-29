@@ -28,6 +28,7 @@ use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use Generator;
+
 use function sprintf;
 
 /**

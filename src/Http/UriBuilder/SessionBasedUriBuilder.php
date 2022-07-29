@@ -27,6 +27,7 @@ use EliasHaeussler\CpanelRequests\Application;
 use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
+
 use function array_filter;
 use function http_build_query;
 use function implode;
