@@ -29,9 +29,6 @@ use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Utils;
-use Prophecy\Argument;
-use Prophecy\PhpUnit;
-use Prophecy\Prophecy;
 
 /**
  * CPanelTest.
@@ -41,19 +38,14 @@ use Prophecy\Prophecy;
  */
 final class CPanelTest extends Tests\MockServerAwareTestCase
 {
-    use PhpUnit\ProphecyTrait;
-
-    /**
-     * @var Prophecy\ObjectProphecy<Application\Authorization\AuthorizationInterface>
-     */
-    private Prophecy\ObjectProphecy $authorizationProphecy;
+    private Tests\Fixtures\DummyAuthorization $authorization;
     private Application\CPanel $subject;
 
     protected function setUp(): void
     {
-        $this->authorizationProphecy = $this->prophesize(Application\Authorization\AuthorizationInterface::class);
+        $this->authorization = new Tests\Fixtures\DummyAuthorization();
         $this->subject = new Application\CPanel(
-            $this->authorizationProphecy->reveal(),
+            $this->authorization,
             self::getMockServer()->getHost(),
             self::getMockServer()->getPort(),
             Http\Protocol::Http
@@ -65,11 +57,7 @@ final class CPanelTest extends Tests\MockServerAwareTestCase
      */
     public function apiThrowsExceptionIfRequestFails(): void
     {
-        /* @noinspection PhpParamsInspection */
-        $this->authorizationProphecy->sendAuthorizedRequest(Argument::cetera())
-            ->willThrow(Exception\InvalidResponseDataException::create())
-            ->shouldBeCalledOnce()
-        ;
+        $this->authorization->expectedException = Exception\InvalidResponseDataException::create();
 
         $this->expectException(Exception\RequestFailedException::class);
         $this->expectExceptionCode(1589836385);
@@ -88,11 +76,7 @@ final class CPanelTest extends Tests\MockServerAwareTestCase
             ->withBody(Utils::streamFor('{"foo":"bar"}'))
         ;
 
-        /* @noinspection PhpParamsInspection */
-        $this->authorizationProphecy->sendAuthorizedRequest(Argument::cetera())
-            ->willReturn($response)
-            ->shouldBeCalledOnce()
-        ;
+        $this->authorization->expectedResponse = $response;
 
         $actual = $this->subject->api('foo', 'bar');
 
