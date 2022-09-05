@@ -46,6 +46,7 @@ final class TokenBasedUriBuilderTest extends Framework\TestCase
 
     /**
      * @test
+     *
      * @dataProvider buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider
      */
     public function buildUriForRequestAppliesModuleAndFunctionToBaseUri(

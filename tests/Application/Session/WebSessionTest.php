@@ -106,6 +106,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
 
     /**
      * @test
+     *
      * @dataProvider startStartsANewSessionWithGivenCredentialsDataProvider
      *
      * @param array{path: string, query: string} $expected

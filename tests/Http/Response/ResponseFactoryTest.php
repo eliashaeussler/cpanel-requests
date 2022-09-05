@@ -46,6 +46,7 @@ final class ResponseFactoryTest extends Framework\TestCase
 
     /**
      * @test
+     *
      * @dataProvider createReturnsResponseFromGivenTypeDataProvider
      *
      * @param class-string<Http\Response\ResponseInterface> $expected

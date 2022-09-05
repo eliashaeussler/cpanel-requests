@@ -63,6 +63,7 @@ final class SessionBasedUriBuilderTest extends Tests\MockServerAwareTestCase
 
     /**
      * @test
+     *
      * @dataProvider buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider
      */
     public function buildUriForRequestAppliesModuleAndFunctionToBaseUri(
