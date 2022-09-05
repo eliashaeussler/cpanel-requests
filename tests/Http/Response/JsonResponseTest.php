@@ -68,6 +68,7 @@ final class JsonResponseTest extends Framework\TestCase
 
     /**
      * @test
+     *
      * @dataProvider supportsReturnsTrueIfResponseHeadersContainSupportedMimeTypeDataProvider
      *
      * @param array{Accept?: string, Content-Type?: string} $headers
@@ -81,6 +82,7 @@ final class JsonResponseTest extends Framework\TestCase
 
     /**
      * @test
+     *
      * @dataProvider supportsReturnsTrueIfResponseBodyCanBeJsonDecodedDataProvider
      */
     public function supportsReturnsTrueIfResponseBodyCanBeJsonDecoded(string $body, bool $expected): void

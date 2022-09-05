@@ -46,6 +46,7 @@ final class DefaultUriBuilderTest extends Framework\TestCase
 
     /**
      * @test
+     *
      * @dataProvider buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider
      */
     public function buildUriForRequestAppliesModuleAndFunctionToBaseUri(

@@ -98,6 +98,7 @@ final class HttpAuthorization implements AuthorizationInterface
 
     /**
      * @throws PsrClient\ClientExceptionInterface
+     *
      * @codeCoverageIgnore
      */
     private function logout(): void
