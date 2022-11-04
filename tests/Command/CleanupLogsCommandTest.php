@@ -75,7 +75,7 @@ final class CleanupLogsCommandTest extends Framework\TestCase
         $logFiles = [];
 
         for ($i = 0; $i < $number; ++$i) {
-            $logFiles[$i] = Resource\Log::create();
+            $logFiles[] = Resource\Log::create();
         }
 
         return $logFiles;

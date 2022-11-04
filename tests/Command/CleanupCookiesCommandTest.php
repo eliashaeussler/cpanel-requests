@@ -125,7 +125,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         $cookieFiles = [];
 
         for ($i = 0; $i < $number; ++$i) {
-            $cookieFiles[$i] = Resource\Cookie::create();
+            $cookieFiles[] = Resource\Cookie::create();
         }
 
         return $cookieFiles;
