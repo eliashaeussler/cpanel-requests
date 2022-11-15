@@ -93,6 +93,9 @@ final class HttpAuthorizationTest extends Tests\MockServerAwareTestCase
         self::createMockResponse(['status' => 1, 'security_token' => '123']);
 
         $otpSecret = ConstantTime\Base32::encode(bin2hex(random_bytes(32)));
+
+        self::assertNotEmpty($otpSecret);
+
         $otp = TOTP::create($otpSecret)->now();
         $subject = new Application\Authorization\HttpAuthorization('foo', 'bar', $otpSecret);
         $request = new Http\Request\ApiRequest(self::getMockServerBaseUri(), 'foo');
