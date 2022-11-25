@@ -2034,28 +2034,31 @@
         },
         {
             "name": "donatj/mock-webserver",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/mock-webserver.git",
-                "reference": "2850c4647e14335cf3e728cad525b701e3a2aecc"
+                "reference": "e238c044267fd6090c4d85b72a6c9e7a7c3a6d91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/mock-webserver/zipball/2850c4647e14335cf3e728cad525b701e3a2aecc",
-                "reference": "2850c4647e14335cf3e728cad525b701e3a2aecc",
+                "url": "https://api.github.com/repos/donatj/mock-webserver/zipball/e238c044267fd6090c4d85b72a6c9e7a7c3a6d91",
+                "reference": "e238c044267fd6090c4d85b72a6c9e7a7c3a6d91",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-sockets": "*",
-                "php": ">=5.4",
+                "php": ">=7.1",
                 "ralouphie/getallheaders": "~2.0 || ~3.0"
             },
             "require-dev": {
+                "corpus/coding-standard": "^0.6.0",
                 "donatj/drop": "^1.0",
                 "ext-curl": "*",
-                "phpunit/phpunit": "~4|~9"
+                "friendsofphp/php-cs-fixer": "^3.1",
+                "phpunit/phpunit": "~7|~9",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "library",
             "autoload": {
@@ -2078,7 +2081,7 @@
             "description": "Simple mock web server for unit testing",
             "support": {
                 "issues": "https://github.com/donatj/mock-webserver/issues",
-                "source": "https://github.com/donatj/mock-webserver/tree/v2.5.0"
+                "source": "https://github.com/donatj/mock-webserver/tree/v2.6.0"
             },
             "funding": [
                 {
@@ -2090,7 +2093,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-17T04:27:21+00:00"
+            "time": "2022-11-25T15:42:42+00:00"
         },
         {
             "name": "ergebnis/composer-normalize",
