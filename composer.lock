@@ -2034,16 +2034,16 @@
         },
         {
             "name": "donatj/mock-webserver",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/mock-webserver.git",
-                "reference": "e238c044267fd6090c4d85b72a6c9e7a7c3a6d91"
+                "reference": "389fe0269970f80bfa89f064c8b7203370f63a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/mock-webserver/zipball/e238c044267fd6090c4d85b72a6c9e7a7c3a6d91",
-                "reference": "e238c044267fd6090c4d85b72a6c9e7a7c3a6d91",
+                "url": "https://api.github.com/repos/donatj/mock-webserver/zipball/389fe0269970f80bfa89f064c8b7203370f63a7c",
+                "reference": "389fe0269970f80bfa89f064c8b7203370f63a7c",
                 "shasum": ""
             },
             "require": {
@@ -2081,7 +2081,7 @@
             "description": "Simple mock web server for unit testing",
             "support": {
                 "issues": "https://github.com/donatj/mock-webserver/issues",
-                "source": "https://github.com/donatj/mock-webserver/tree/v2.6.0"
+                "source": "https://github.com/donatj/mock-webserver/tree/v2.6.1"
             },
             "funding": [
                 {
@@ -2093,7 +2093,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-25T15:42:42+00:00"
+            "time": "2022-11-28T11:26:19+00:00"
         },
         {
             "name": "ergebnis/composer-normalize",
