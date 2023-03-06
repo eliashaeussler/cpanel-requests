@@ -32,7 +32,7 @@
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpstan/phpstan-strict-rules": "^1.2",
-        "phpunit/phpunit": "^9.5.5",
+        "phpunit/phpunit": "^9.5.5 || ^10.0.0",
         "spomky-labs/otphp": "^11.0",
         "thecodingmachine/safe": "^2.0"
     },
