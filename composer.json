@@ -28,11 +28,11 @@
         "armin/editorconfig-cli": "^1.5",
         "donatj/mock-webserver": "^2.4",
         "eliashaeussler/php-cs-fixer-config": "^1.1",
+        "eliashaeussler/phpstan-config": "^1.0",
         "eliashaeussler/rector-config": "^1.0",
         "ergebnis/composer-normalize": "^2.28",
-        "phpstan/phpstan": "^1.8",
+        "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan-phpunit": "^1.1",
-        "phpstan/phpstan-strict-rules": "^1.2",
         "phpunit/phpunit": "^10.0",
         "spomky-labs/otphp": "^11.0",
         "thecodingmachine/safe": "^2.0"
@@ -53,7 +53,8 @@
     "bin": "bin/cpanel-requests",
     "config": {
         "allow-plugins": {
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
