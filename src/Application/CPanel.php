@@ -44,9 +44,9 @@ use Psr\Http\Message;
  */
 final class CPanel
 {
-    private Message\UriInterface $baseUri;
-    private Http\Response\ResponseFactory $responseFactory;
-    private Resource\File $logFile;
+    private readonly Message\UriInterface $baseUri;
+    private readonly Http\Response\ResponseFactory $responseFactory;
+    private readonly Resource\File $logFile;
 
     public function __construct(
         private readonly Authorization\AuthorizationInterface $authorization,

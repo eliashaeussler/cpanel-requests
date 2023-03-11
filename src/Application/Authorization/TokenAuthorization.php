@@ -39,9 +39,9 @@ use function sprintf;
  */
 final class TokenAuthorization implements AuthorizationInterface
 {
-    private Message\RequestFactoryInterface $requestFactory;
-    private Http\UriBuilder\TokenBasedUriBuilder $uriBuilder;
-    private Client $client;
+    private readonly Message\RequestFactoryInterface $requestFactory;
+    private readonly Http\UriBuilder\TokenBasedUriBuilder $uriBuilder;
+    private readonly Client $client;
 
     public function __construct(
         private readonly string $username,

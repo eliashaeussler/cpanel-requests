@@ -36,14 +36,11 @@ use function array_key_exists;
  */
 final class ResponseFactory
 {
-    /**
-     * @var non-empty-array<string, class-string<ResponseInterface>>
-     */
-    private array $map = [
+    private const MAP = [
         'json' => JsonResponse::class,
         'web' => WebResponse::class,
     ];
-    private string $default = 'web';
+    private const DEFAULT = 'web';
 
     /**
      * @throws Exception\InvalidResponseDataException
@@ -53,7 +50,7 @@ final class ResponseFactory
         $normalizedType = strtolower(trim($type));
 
         if ($this->supports($normalizedType)) {
-            $className = $this->map[$normalizedType];
+            $className = self::MAP[$normalizedType];
         } else {
             $className = NullResponse::class;
         }
@@ -66,10 +63,10 @@ final class ResponseFactory
      */
     public function createFromResponse(PsrResponse $response): ResponseInterface
     {
-        $selectedType = $this->default;
+        $selectedType = self::DEFAULT;
 
-        /** @var ResponseInterface $className */
-        foreach ($this->map as $type => $className) {
+        /** @var class-string<ResponseInterface> $className */
+        foreach (self::MAP as $type => $className) {
             if ($className::supports($response)) {
                 $selectedType = $type;
                 break;
@@ -81,7 +78,7 @@ final class ResponseFactory
 
     public function supports(string $type): bool
     {
-        return array_key_exists($type, $this->map);
+        return array_key_exists($type, self::MAP);
     }
 
     /**

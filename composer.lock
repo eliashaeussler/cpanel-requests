@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7366cc22414d37e7574a2dbc6ded82e2",
+    "content-hash": "ae12094c3ee1b6ff61766e2b60aa41f8",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -2031,6 +2031,48 @@
             "time": "2022-11-28T11:26:19+00:00"
         },
         {
+            "name": "eliashaeussler/rector-config",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eliashaeussler/rector-config.git",
+                "reference": "9725489c558f9a57daae919815c1c798bb8cbcb8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/9725489c558f9a57daae919815c1c798bb8cbcb8",
+                "reference": "9725489c558f9a57daae919815c1c798bb8cbcb8",
+                "shasum": ""
+            },
+            "require": {
+                "rector/rector": "^0.15.21"
+            },
+            "require-dev": {
+                "armin/editorconfig-cli": "^1.5",
+                "eliashaeussler/php-cs-fixer-config": "^1.1",
+                "ergebnis/composer-normalize": "^2.30"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Elias Häußler",
+                    "email": "elias@haeussler.dev",
+                    "homepage": "https://haeussler.dev",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "My personal configuration for Rector",
+            "support": {
+                "issues": "https://github.com/eliashaeussler/rector-config/issues",
+                "source": "https://github.com/eliashaeussler/rector-config/tree/1.0.0"
+            },
+            "time": "2023-03-09T09:25:30+00:00"
+        },
+        {
             "name": "ergebnis/composer-normalize",
             "version": "2.30.2",
             "source": {
@@ -3657,6 +3699,67 @@
                 "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
             },
             "time": "2019-01-08T18:20:26+00:00"
+        },
+        {
+            "name": "rector/rector",
+            "version": "0.15.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "1cee8cc5d6d836e1bf9a3006d7b062adde3a6022"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/1cee8cc5d6d836e1bf9a3006d7b062adde3a6022",
+                "reference": "1cee8cc5d6d836e1bf9a3006d7b062adde3a6022",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "phpstan/phpstan": "^1.10.1"
+            },
+            "conflict": {
+                "rector/rector-doctrine": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-phpunit": "*",
+                "rector/rector-symfony": "*"
+            },
+            "bin": [
+                "bin/rector"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.15-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
+            "keywords": [
+                "automation",
+                "dev",
+                "migration",
+                "refactoring"
+            ],
+            "support": {
+                "issues": "https://github.com/rectorphp/rector/issues",
+                "source": "https://github.com/rectorphp/rector/tree/0.15.21"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-06T11:44:29+00:00"
         },
         {
             "name": "sebastian/cli-parser",

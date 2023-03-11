@@ -27,6 +27,7 @@
     "require-dev": {
         "armin/editorconfig-cli": "^1.5",
         "donatj/mock-webserver": "^2.4",
+        "eliashaeussler/rector-config": "^1.0",
         "ergebnis/composer-normalize": "^2.28",
         "friendsofphp/php-cs-fixer": "^3.8",
         "phpstan/phpstan": "^1.8",
@@ -68,6 +69,10 @@
         "lint:editorconfig:fix": "@lint:editorconfig --fix",
         "lint:php": "@lint:php:fix --dry-run",
         "lint:php:fix": "php-cs-fixer fix",
+        "migration": [
+            "@migration:rector"
+        ],
+        "migration:rector": "rector process",
         "sca": [
             "@sca:php"
         ],

@@ -46,8 +46,8 @@ use function register_shutdown_function;
  */
 final class HttpAuthorization implements AuthorizationInterface
 {
-    private Client $client;
-    private Message\RequestFactoryInterface $requestFactory;
+    private readonly Client $client;
+    private readonly Message\RequestFactoryInterface $requestFactory;
     private ?Http\UriBuilder\UriBuilderInterface $uriBuilder = null;
     private ?Application\Session\WebSession $session = null;
 
