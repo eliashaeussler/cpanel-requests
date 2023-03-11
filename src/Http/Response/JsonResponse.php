@@ -39,7 +39,13 @@ use function str_starts_with;
  */
 final class JsonResponse implements ResponseInterface
 {
-    private stdClass $data;
+    private const MIME_TYPE = 'application/json';
+    private const POSSIBLE_HEADERS = [
+        'Accept',
+        'Content-Type',
+    ];
+
+    private readonly stdClass $data;
 
     public function __construct(
         private readonly PsrResponse $response,
@@ -49,15 +55,9 @@ final class JsonResponse implements ResponseInterface
 
     public static function supports(PsrResponse $response): bool
     {
-        $mimeType = 'application/json';
-        $possibleHeaders = [
-            'Accept',
-            'Content-Type',
-        ];
-
         // Test for expected mime type in response headers
-        foreach ($possibleHeaders as $header) {
-            if ($response->hasHeader($header) && str_starts_with($response->getHeader($header)[0], $mimeType)) {
+        foreach (self::POSSIBLE_HEADERS as $header) {
+            if ($response->hasHeader($header) && str_starts_with($response->getHeader($header)[0], self::MIME_TYPE)) {
                 return true;
             }
         }
@@ -79,9 +79,10 @@ final class JsonResponse implements ResponseInterface
 
     public function isValid(string $dataKey = 'data'): bool
     {
-        $data = $this->getData();
-
-        return property_exists($data, 'status') && 1 === $data->status && property_exists($data, $dataKey);
+        return property_exists($this->data, 'status')
+            && 1 === $this->data->status
+            && property_exists($this->data, $dataKey)
+        ;
     }
 
     public function getData(): stdClass

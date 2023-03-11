@@ -34,7 +34,7 @@ use Symfony\Component\Filesystem;
  */
 final class File extends SplFileInfo
 {
-    private Filesystem\Filesystem $filesystem;
+    private readonly Filesystem\Filesystem $filesystem;
 
     public function __construct(string $filename)
     {

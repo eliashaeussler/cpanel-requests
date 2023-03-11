@@ -26,7 +26,6 @@ namespace EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
 use Throwable;
 
-use function get_class;
 use function sprintf;
 
 /**
@@ -52,7 +51,7 @@ final class RequestFailedException extends Exception
     public static function forUnexpectedResponse(string $expected, Http\Response\ResponseInterface $actual): self
     {
         return new self(
-            sprintf('Expected "%s", got "%s" instead.', $expected, get_class($actual)),
+            sprintf('Expected "%s", got "%s" instead.', $expected, $actual::class),
             1592850467
         );
     }

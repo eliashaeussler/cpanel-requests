@@ -44,11 +44,11 @@ final class WebSession
     private const SESSION_TOKEN_PARAMETER = 'security_token';
 
     private bool $active;
-    private Http\UriBuilder\DefaultUriBuilder $uriBuilder;
-    private Message\RequestFactoryInterface $requestFactory;
-    private Http\Response\ResponseFactory $responseFactory;
-    private GuzzleClient $client;
-    private Resource\File $cookie;
+    private readonly Http\UriBuilder\DefaultUriBuilder $uriBuilder;
+    private readonly Message\RequestFactoryInterface $requestFactory;
+    private readonly Http\Response\ResponseFactory $responseFactory;
+    private readonly GuzzleClient $client;
+    private readonly Resource\File $cookie;
     private ?string $identifier = null;
 
     public function __construct(

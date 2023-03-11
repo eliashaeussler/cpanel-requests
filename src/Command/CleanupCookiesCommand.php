@@ -71,7 +71,7 @@ final class CleanupCookiesCommand extends Console\Command\Command
 
         if ($io->isVerbose() && $count > 0) {
             $io->writeln('The following cookie files have been removed:');
-            $io->listing(array_map([self::class, 'decorateFile'], $clearedCookies));
+            $io->listing(array_map(self::decorateFile(...), $clearedCookies));
         }
 
         $io->success(sprintf('Cleared %d cookie%s.', $count, 1 !== $count ? 's' : ''));

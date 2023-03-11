@@ -54,7 +54,7 @@ final class CleanupLogsCommand extends Console\Command\Command
 
         if ($io->isVerbose() && $count > 0) {
             $io->writeln('The following log files have been removed:');
-            $io->listing(array_map([self::class, 'decorateFile'], $clearedLogFiles));
+            $io->listing(array_map(self::decorateFile(...), $clearedLogFiles));
         }
 
         $io->success(sprintf('Cleared %s log file%s.', $count, 1 !== $count ? 's' : ''));
