@@ -14,7 +14,7 @@ declare(strict_types=1);
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -107,7 +107,7 @@ final class Cookie
         $pathname = Filesystem\Path::join(
             Helper\FilesystemHelper::getTemporaryStorageDirectory(),
             self::COOKIE_DIRECTORY,
-            $filename
+            $filename,
         );
 
         return new File($pathname);

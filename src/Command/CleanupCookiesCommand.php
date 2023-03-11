@@ -14,7 +14,7 @@ declare(strict_types=1);
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -51,7 +51,7 @@ final class CleanupCookiesCommand extends Console\Command\Command
             'l',
             Console\Input\InputOption::VALUE_REQUIRED,
             'Lifetime of cookie files in seconds',
-            Resource\Cookie::DEFAULT_LIFETIME
+            Resource\Cookie::DEFAULT_LIFETIME,
         );
     }
 

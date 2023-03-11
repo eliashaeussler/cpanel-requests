@@ -14,7 +14,7 @@ declare(strict_types=1);
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -55,7 +55,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         $this->expectException(Exception\RequestFailedException::class);
         $this->expectExceptionCode(1592850467);
         $this->expectExceptionMessage(
-            sprintf('Expected "%s", got "%s" instead.', Http\Response\JsonResponse::class, Http\Response\WebResponse::class)
+            sprintf('Expected "%s", got "%s" instead.', Http\Response\JsonResponse::class, Http\Response\WebResponse::class),
         );
 
         $this->subject->start('foo', 'bar');
