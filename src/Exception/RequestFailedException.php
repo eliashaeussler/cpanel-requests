@@ -14,7 +14,7 @@ declare(strict_types=1);
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -41,7 +41,7 @@ final class RequestFailedException extends Exception
         return new self(
             'Error during API request: '.$previousException->getMessage(),
             1589836385,
-            $previousException
+            $previousException,
         );
     }
 
@@ -52,7 +52,7 @@ final class RequestFailedException extends Exception
     {
         return new self(
             sprintf('Expected "%s", got "%s" instead.', $expected, $actual::class),
-            1592850467
+            1592850467,
         );
     }
 }

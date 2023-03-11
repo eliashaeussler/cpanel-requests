@@ -14,7 +14,7 @@ declare(strict_types=1);
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -46,7 +46,7 @@ trait MockServerTrait
 
     protected static function startMockServer(
         string $host = '127.0.0.1',
-        int $port = 2083
+        int $port = 2083,
     ): MockWebServer\MockWebServer {
         self::$mockServer?->stop();
         self::$mockServer = new MockWebServer\MockWebServer($port, $host);
@@ -107,7 +107,7 @@ trait MockServerTrait
 
         $requestCountFile = Filesystem\Path::join(
             $webServerPath,
-            MockWebServer\MockWebServer::REQUEST_COUNT_FILE
+            MockWebServer\MockWebServer::REQUEST_COUNT_FILE,
         );
 
         self::assertFileExists($requestCountFile);
@@ -123,7 +123,7 @@ trait MockServerTrait
         string|array $body,
         array $headers = [],
         int $statusCode = 200,
-        string $requestPath = null
+        string $requestPath = null,
     ): MockWebServer\Response {
         if (is_array($body)) {
             $body = json_encode($body, JSON_THROW_ON_ERROR);
