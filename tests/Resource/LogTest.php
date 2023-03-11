@@ -41,9 +41,7 @@ final class LogTest extends Framework\TestCase
         Resource\Log::removeAll();
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function createCreatesANewLogFile(): void
     {
         $actual = Resource\Log::create();
@@ -51,9 +49,7 @@ final class LogTest extends Framework\TestCase
         self::assertFileExists($actual->getPathname());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function removeAllAllLogFiles(): void
     {
         $logs = [];
@@ -73,9 +69,7 @@ final class LogTest extends Framework\TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function listAllListsAllAvailableLogFiles(): void
     {
         $logs = [];

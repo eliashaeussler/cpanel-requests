@@ -26,6 +26,7 @@ namespace EliasHaeussler\CpanelRequests\Tests\Application\Authorization;
 use EliasHaeussler\CpanelRequests\Application;
 use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
+use PHPUnit\Framework;
 
 /**
  * TokenAuthorizationTest.
@@ -42,9 +43,7 @@ final class TokenAuthorizationTest extends Tests\MockServerAwareTestCase
         $this->subject = new Application\Authorization\TokenAuthorization('foo', 'bar');
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function sendAuthorizedRequestAuthorizesAndSendsGivenRequest(): void
     {
         $request = new Http\Request\ApiRequest(self::getMockServerBaseUri(), 'foo');

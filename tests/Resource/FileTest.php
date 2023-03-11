@@ -46,9 +46,7 @@ final class FileTest extends Framework\TestCase
         $this->subject = new Resource\File($this->file);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function existsReturnStateOfExistence(): void
     {
         $this->subject->remove();

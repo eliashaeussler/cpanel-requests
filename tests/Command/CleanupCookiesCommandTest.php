@@ -48,9 +48,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         Resource\Cookie::removeAll(0);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeClearsNoCookiesIfCookieDirectoryIsEmpty(): void
     {
         $this->commandTester->execute(['--lifetime' => 0]);
@@ -58,9 +56,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         $this->assertNumberOfClearedCookies(0);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeClearsAllCookiesIfLifetimeIsZero(): void
     {
         self::createCookies();
@@ -70,9 +66,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         $this->assertNumberOfClearedCookies(5);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeClearsOnlyExpiredCookies(): void
     {
         [$firstCookieFile] = self::createCookies();
@@ -86,9 +80,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         $this->assertNumberOfClearedCookies(4);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeListsAllRemovedCookiesIfOutputIsVerbose(): void
     {
         $cookies = self::createCookies();
@@ -105,9 +97,7 @@ final class CleanupCookiesCommandTest extends Framework\TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeFallsBackToDefaultLifetimeIfGivenLifetimeIsNotNumeric(): void
     {
         self::createCookies(1);

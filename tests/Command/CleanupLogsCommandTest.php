@@ -45,9 +45,7 @@ final class CleanupLogsCommandTest extends Framework\TestCase
         Resource\Log::removeAll();
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeClearsNoLogFilesIfLogDirectoryIsEmpty(): void
     {
         $this->commandTester->execute([]);
@@ -55,9 +53,7 @@ final class CleanupLogsCommandTest extends Framework\TestCase
         $this->assertNumberOfClearedLogFiles(0);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeClearsAllLogFiles(): void
     {
         $this->createLogFiles();
@@ -81,9 +77,7 @@ final class CleanupLogsCommandTest extends Framework\TestCase
         return $logFiles;
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function executeListsAllRemovedCookiesIfOutputIsVerbose(): void
     {
         $logFiles = self::createLogFiles();

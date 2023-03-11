@@ -44,41 +44,31 @@ final class ApiRequestTest extends Framework\TestCase
         $this->subject = new Http\Request\ApiRequest($this->baseUri, 'foo', 'bar', ['hello' => 'world']);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getBaseUriReturnsBaseUri(): void
     {
         self::assertSame($this->baseUri, $this->subject->getBaseUri());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getModuleReturnsModule(): void
     {
         self::assertSame('foo', $this->subject->getModule());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getFunctionReturnsFunction(): void
     {
         self::assertSame('bar', $this->subject->getFunction());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getParametersReturnsParameters(): void
     {
         self::assertSame(['hello' => 'world'], $this->subject->getParameters());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function setParametersAppliesGivenParameters(): void
     {
         $this->subject->setParameters(['foo' => 'bar']);
@@ -86,9 +76,7 @@ final class ApiRequestTest extends Framework\TestCase
         self::assertSame(['foo' => 'bar'], $this->subject->getParameters());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function addParameterAddsGivenParameter(): void
     {
         $this->subject->addParameter('foo', 'bar');
@@ -96,9 +84,7 @@ final class ApiRequestTest extends Framework\TestCase
         self::assertSame(['hello' => 'world', 'foo' => 'bar'], $this->subject->getParameters());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function removeParameterRemovesGivenParameter(): void
     {
         $this->subject->removeParameter('foo');

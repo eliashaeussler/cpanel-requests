@@ -29,6 +29,7 @@ use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use OTPHP\TOTP;
 use ParagonIE\ConstantTime;
+use PHPUnit\Framework;
 
 /**
  * HttpAuthorizationTest.
@@ -47,9 +48,7 @@ final class HttpAuthorizationTest extends Tests\MockServerAwareTestCase
         $this->responseFactory = new Http\Response\ResponseFactory();
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function sendAuthorizedRequestCreatesANewSessionIfSessionIsNotActive(): void
     {
         self::restartMockServer();
@@ -68,9 +67,7 @@ final class HttpAuthorizationTest extends Tests\MockServerAwareTestCase
         self::assertSame(3, self::getNumberOfMockServerRequests());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function sendAuthorizedRequestAuthorizesAndSendsGivenRequest(): void
     {
         $request = new Http\Request\ApiRequest(self::getMockServerBaseUri(), 'foo');
@@ -84,9 +81,7 @@ final class HttpAuthorizationTest extends Tests\MockServerAwareTestCase
         self::assertEquals((object) ['status' => 1], $response->getData());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function sendAuthorizedRequestProvidesOTPTokenIfOTPSecretIsGiven(): void
     {
         self::restartMockServer();

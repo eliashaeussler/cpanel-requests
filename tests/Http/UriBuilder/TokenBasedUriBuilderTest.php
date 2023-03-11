@@ -37,18 +37,15 @@ use Psr\Http\Message;
  */
 final class TokenBasedUriBuilderTest extends Framework\TestCase
 {
-    protected Http\UriBuilder\TokenBasedUriBuilder $subject;
+    private Http\UriBuilder\TokenBasedUriBuilder $subject;
 
     protected function setUp(): void
     {
         $this->subject = new Http\UriBuilder\TokenBasedUriBuilder();
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider
-     */
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider')]
     public function buildUriForRequestAppliesModuleAndFunctionToBaseUri(
         Message\UriInterface $baseUri,
         string $expected
@@ -63,7 +60,7 @@ final class TokenBasedUriBuilderTest extends Framework\TestCase
     /**
      * @return Generator<string, array{Message\UriInterface, string}>
      */
-    public function buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider(): Generator
+    public static function buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider(): Generator
     {
         $baseUri = new Psr7\Uri('http://example.org');
 
