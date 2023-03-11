@@ -34,11 +34,11 @@
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpunit/phpunit": "^10.0",
-        "spomky-labs/otphp": "^11.0",
+        "spomky-labs/otphp": "^11.1",
         "thecodingmachine/safe": "^2.0"
     },
     "suggest": {
-        "spomky-labs/otphp": "Used for authentication via HTTP session (^11.0)"
+        "spomky-labs/otphp": "Used for authentication via HTTP session (^11.1)"
     },
     "autoload": {
         "psr-4": {
