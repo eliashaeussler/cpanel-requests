@@ -45,33 +45,25 @@ final class NullResponseTest extends Framework\TestCase
         $this->subject = new Http\Response\NullResponse($this->response);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function supportsReturnsAlwaysTrue(): void
     {
         self::assertTrue(Http\Response\NullResponse::supports($this->response));
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function isValidReturnsAlwaysFalse(): void
     {
         self::assertFalse($this->subject->isValid());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getDataReturnsAlwaysNull(): void
     {
         self::assertNull($this->subject->getData());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getResponseReturnsResponseObject(): void
     {
         self::assertSame($this->response, $this->subject->getOriginalResponse());

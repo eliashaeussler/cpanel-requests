@@ -28,6 +28,7 @@ use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use Generator;
+use PHPUnit\Framework;
 
 use function sprintf;
 
@@ -46,9 +47,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         $this->subject = new Application\Session\WebSession(self::getMockServerBaseUri());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function startThrowsExceptionIfResponseIsNotAJsonResponse(): void
     {
         self::createMockResponse('Hello world!');
@@ -62,9 +61,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         $this->subject->start('foo', 'bar');
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function startThrowsExceptionIfExpectedSessionTokenParameterIsInvalid(): void
     {
         self::createMockResponse(['status' => 1]);
@@ -76,9 +73,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         $this->subject->start('foo', 'bar');
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function startThrowsExceptionIfExpectedSessionTokenParameterIsNull(): void
     {
         self::createMockResponse(['status' => 1, 'security_token' => null]);
@@ -90,9 +85,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         $this->subject->start('foo', 'bar');
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function startThrowsExceptionIfExpectedSessionTokenParameterIsEmpty(): void
     {
         self::createMockResponse(['status' => 1, 'security_token' => '']);
@@ -105,12 +98,10 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
     }
 
     /**
-     * @test
-     *
-     * @dataProvider startStartsANewSessionWithGivenCredentialsDataProvider
-     *
      * @param array{path: string, query: string} $expected
      */
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('startStartsANewSessionWithGivenCredentialsDataProvider')]
     public function startStartsANewSessionWithGivenCredentials(?string $otp, array $expected): void
     {
         self::createMockResponse(['status' => 1, 'security_token' => '123']);
@@ -125,9 +116,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         self::assertSame($expected, $lastRequest->getParsedUri());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function stopDoesNothingIfSessionIsNotActive(): void
     {
         self::restartMockServer();
@@ -137,9 +126,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         self::assertNull(self::getMockServer()->getLastRequest());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function stopClosesSessionOnSuccessfulLogout(): void
     {
         self::createMockResponse(['status' => 1, 'security_token' => '123']);
@@ -154,17 +141,13 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
         self::assertFalse($this->subject->isActive());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function isActiveReturnsFalseOnInitialState(): void
     {
         self::assertFalse($this->subject->isActive());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getIdentifierReturnsNullOnInitialState(): void
     {
         self::assertNull($this->subject->getIdentifier());
@@ -173,7 +156,7 @@ final class WebSessionTest extends Tests\MockServerAwareTestCase
     /**
      * @return Generator<string, array{string|null, array{path: string, query: string}}>
      */
-    public function startStartsANewSessionWithGivenCredentialsDataProvider(): Generator
+    public static function startStartsANewSessionWithGivenCredentialsDataProvider(): Generator
     {
         yield 'without OTP' => [
             null,

@@ -29,6 +29,7 @@ use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Utils;
+use PHPUnit\Framework;
 
 /**
  * CPanelTest.
@@ -52,9 +53,7 @@ final class CPanelTest extends Tests\MockServerAwareTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function apiThrowsExceptionIfRequestFails(): void
     {
         $this->authorization->expectedException = Exception\InvalidResponseDataException::create();
@@ -66,9 +65,7 @@ final class CPanelTest extends Tests\MockServerAwareTestCase
         $this->subject->api('foo', 'bar');
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function apiReturnsApiResponse(): void
     {
         $response = (new Response())

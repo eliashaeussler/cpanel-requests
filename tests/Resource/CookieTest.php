@@ -44,9 +44,7 @@ final class CookieTest extends Framework\TestCase
         Resource\Cookie::removeAll(0);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function createCreatesANewCookieFile(): void
     {
         $actual = Resource\Cookie::create();
@@ -54,9 +52,7 @@ final class CookieTest extends Framework\TestCase
         self::assertFileExists($actual->getPathname());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function removeAllWithoutLifetimeRemovesAllCookieFiles(): void
     {
         $cookies = [];
@@ -76,9 +72,7 @@ final class CookieTest extends Framework\TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function removeAllWithLifetimeRemovesAllExpiredCookieFiles(): void
     {
         $cookies = [];
@@ -108,9 +102,7 @@ final class CookieTest extends Framework\TestCase
         self::assertFileExists($existingCookie->getPathname());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function listAllListsAllAvailableCookieFiles(): void
     {
         $cookies = [];

@@ -28,6 +28,7 @@ use EliasHaeussler\CpanelRequests\Exception;
 use EliasHaeussler\CpanelRequests\Http;
 use EliasHaeussler\CpanelRequests\Tests;
 use Generator;
+use PHPUnit\Framework;
 use Psr\Http\Message;
 
 /**
@@ -47,9 +48,7 @@ final class SessionBasedUriBuilderTest extends Tests\MockServerAwareTestCase
         $this->subject = new Http\UriBuilder\SessionBasedUriBuilder($this->session);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function buildUriForRequestThrowsExceptionIfSessionIsNotActive(): void
     {
         $request = new Http\Request\ApiRequest(self::getMockServerBaseUri(), 'foo');
@@ -61,11 +60,8 @@ final class SessionBasedUriBuilderTest extends Tests\MockServerAwareTestCase
         $this->subject->buildUriForRequest($request);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider
-     */
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider')]
     public function buildUriForRequestAppliesModuleAndFunctionToBaseUri(
         Message\UriInterface $baseUri,
         string $expected
@@ -85,7 +81,7 @@ final class SessionBasedUriBuilderTest extends Tests\MockServerAwareTestCase
     /**
      * @return Generator<string, array{Message\UriInterface, string}>
      */
-    public function buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider(): Generator
+    public static function buildUriForRequestAppliesModuleAndFunctionToBaseUriDataProvider(): Generator
     {
         self::startMockServer();
 

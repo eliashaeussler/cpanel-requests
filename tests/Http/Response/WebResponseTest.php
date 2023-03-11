@@ -35,9 +35,7 @@ use PHPUnit\Framework;
  */
 final class WebResponseTest extends Framework\TestCase
 {
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function isValidReturnsTrueIfResponseWasSuccessful(): void
     {
         $response = new Psr7\Response();
@@ -51,9 +49,7 @@ final class WebResponseTest extends Framework\TestCase
         self::assertFalse($subject->isValid());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getDataReturnsResponseBody(): void
     {
         $response = new Psr7\Response(body: 'hello world!');
@@ -62,9 +58,7 @@ final class WebResponseTest extends Framework\TestCase
         self::assertSame('hello world!', $subject->getData());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function getResponseReturnsResponseObject(): void
     {
         $response = new Psr7\Response();

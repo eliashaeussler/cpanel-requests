@@ -45,12 +45,10 @@ final class ResponseFactoryTest extends Framework\TestCase
     }
 
     /**
-     * @test
-     *
-     * @dataProvider createReturnsResponseFromGivenTypeDataProvider
-     *
      * @param class-string<Http\Response\ResponseInterface> $expected
      */
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('createReturnsResponseFromGivenTypeDataProvider')]
     public function createReturnsResponseFromGivenType(string $type, string $expected): void
     {
         $response = new Psr7\Response(body: '{}');
@@ -58,9 +56,7 @@ final class ResponseFactoryTest extends Framework\TestCase
         self::assertInstanceOf($expected, $this->subject->create($type, $response));
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function createReturnsNullResponseIfRegisteredRepresentationsAreInvalid(): void
     {
         $response = new Psr7\Response();
@@ -69,9 +65,7 @@ final class ResponseFactoryTest extends Framework\TestCase
         self::assertInstanceOf(Http\Response\NullResponse::class, $this->subject->create('dummy', $response));
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function createFromResponseReturnsJsonResponse(): void
     {
         $response = new Psr7\Response(200, ['Content-Type' => 'application/json'], '{"foo":"baz"}');
@@ -84,9 +78,7 @@ final class ResponseFactoryTest extends Framework\TestCase
         self::assertEquals($expectedData, $result->getData());
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function createFromResponseReturnsWebResponse(): void
     {
         $response = new Psr7\Response(body: 'hello world!');
@@ -101,7 +93,7 @@ final class ResponseFactoryTest extends Framework\TestCase
     /**
      * @return Generator<string, array{string, class-string<Http\Response\ResponseInterface>}>
      */
-    public function createReturnsResponseFromGivenTypeDataProvider(): Generator
+    public static function createReturnsResponseFromGivenTypeDataProvider(): Generator
     {
         yield 'web response' => ['web', Http\Response\WebResponse::class];
         yield 'json response' => ['json', Http\Response\JsonResponse::class];
