@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcd86771b3d1ce2aeb87e20dea6fc9e5",
+    "content-hash": "9666dcf644b860567069d27cc251a11e",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -2083,6 +2083,56 @@
             "time": "2023-02-20T17:32:53+00:00"
         },
         {
+            "name": "eliashaeussler/phpstan-config",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eliashaeussler/phpstan-config.git",
+                "reference": "82a4e4bdca0b66d41b77d9847c986ccd1bab0d50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eliashaeussler/phpstan-config/zipball/82a4e4bdca0b66d41b77d9847c986ccd1bab0d50",
+                "reference": "82a4e4bdca0b66d41b77d9847c986ccd1bab0d50",
+                "shasum": ""
+            },
+            "require": {
+                "phpstan/phpstan": "^1.9",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "phpstan/phpstan-strict-rules": "^1.4"
+            },
+            "require-dev": {
+                "armin/editorconfig-cli": "^1.5",
+                "ergebnis/composer-normalize": "^2.29"
+            },
+            "type": "library",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "phpstan-base.neon.dist"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Elias Häußler",
+                    "email": "elias@haeussler.dev",
+                    "homepage": "https://haeussler.dev",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "My personal configuration for PHPStan",
+            "support": {
+                "issues": "https://github.com/eliashaeussler/phpstan-config/issues",
+                "source": "https://github.com/eliashaeussler/phpstan-config/tree/1.0.2"
+            },
+            "time": "2023-02-20T17:41:19+00:00"
+        },
+        {
             "name": "eliashaeussler/rector-config",
             "version": "1.0.0",
             "source": {
@@ -3077,6 +3127,50 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
+            "name": "phpstan/extension-installer",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/extension-installer.git",
+                "reference": "f06dbb052ddc394e7896fcd1cfcd533f9f6ace40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/extension-installer/zipball/f06dbb052ddc394e7896fcd1cfcd533f9f6ace40",
+                "reference": "f06dbb052ddc394e7896fcd1cfcd533f9f6ace40",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.8.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2.0",
+                "phpstan/phpstan-strict-rules": "^0.11 || ^0.12 || ^1.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "PHPStan\\ExtensionInstaller\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\ExtensionInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Composer plugin for automatic installation of PHPStan extensions",
+            "support": {
+                "issues": "https://github.com/phpstan/extension-installer/issues",
+                "source": "https://github.com/phpstan/extension-installer/tree/1.2.0"
+            },
+            "time": "2022-10-17T12:59:16+00:00"
+        },
+        {
             "name": "phpstan/phpstan",
             "version": "1.10.6",
             "source": {
@@ -3134,6 +3228,54 @@
                 }
             ],
             "time": "2023-03-09T16:55:12+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-deprecation-rules",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
+                "reference": "bcc1e8cdf81c3da1a2ba9188ee94cd7e2a62e865"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/bcc1e8cdf81c3da1a2ba9188ee94cd7e2a62e865",
+                "reference": "bcc1e8cdf81c3da1a2ba9188ee94cd7e2a62e865",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-php-parser": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/1.1.2"
+            },
+            "time": "2023-01-17T16:14:21+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",

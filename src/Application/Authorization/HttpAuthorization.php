@@ -121,7 +121,7 @@ final class HttpAuthorization implements AuthorizationInterface
             return null;
         }
 
-        return TOTP::create(trim($this->otpSecret))->now();
+        return TOTP::createFromSecret(trim($this->otpSecret))->now();
     }
 
     private function createUriBuilder(): Http\UriBuilder\UriBuilderInterface

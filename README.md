@@ -31,7 +31,7 @@ composer require eliashaeussler/cpanel-requests
 
 :warning: If you want to use two-factor authentication together with
 the HTTP session [authorization](#authorization) method, you must
-**manually require the `spomky-labs/otphp` package**.
+**manually require the `spomky-labs/otphp` package (>= 11.1)**.
 
 ## :zap:Usage
 
