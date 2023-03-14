@@ -2032,16 +2032,16 @@
         },
         {
             "name": "eliashaeussler/php-cs-fixer-config",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/php-cs-fixer-config.git",
-                "reference": "f80df8093aff4e2397bf156dabd0ca47d956d313"
+                "reference": "70352427c7e4a5951e3bd04152dc62814907f38d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/php-cs-fixer-config/zipball/f80df8093aff4e2397bf156dabd0ca47d956d313",
-                "reference": "f80df8093aff4e2397bf156dabd0ca47d956d313",
+                "url": "https://api.github.com/repos/eliashaeussler/php-cs-fixer-config/zipball/70352427c7e4a5951e3bd04152dc62814907f38d",
+                "reference": "70352427c7e4a5951e3bd04152dc62814907f38d",
                 "shasum": ""
             },
             "require": {
@@ -2078,9 +2078,9 @@
             "description": "My personal configuration for PHP-CS-Fixer",
             "support": {
                 "issues": "https://github.com/eliashaeussler/php-cs-fixer-config/issues",
-                "source": "https://github.com/eliashaeussler/php-cs-fixer-config/tree/1.1.1"
+                "source": "https://github.com/eliashaeussler/php-cs-fixer-config/tree/1.2.0"
             },
-            "time": "2023-02-20T17:32:53+00:00"
+            "time": "2023-03-14T21:22:18+00:00"
         },
         {
             "name": "eliashaeussler/phpstan-config",
@@ -2566,16 +2566,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.14.4",
+            "version": "v3.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "1b3d9dba63d93b8a202c31e824748218781eae6b"
+                "reference": "d48755372a113bddb99f749e34805d83f3acfe04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/1b3d9dba63d93b8a202c31e824748218781eae6b",
-                "reference": "1b3d9dba63d93b8a202c31e824748218781eae6b",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/d48755372a113bddb99f749e34805d83f3acfe04",
+                "reference": "d48755372a113bddb99f749e34805d83f3acfe04",
                 "shasum": ""
             },
             "require": {
@@ -2642,9 +2642,15 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
+            "keywords": [
+                "Static code analysis",
+                "fixer",
+                "standards",
+                "static analysis"
+            ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.14.4"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.15.1"
             },
             "funding": [
                 {
@@ -2652,7 +2658,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-09T21:49:13+00:00"
+            "time": "2023-03-13T23:26:30+00:00"
         },
         {
             "name": "idiosyncratic/editorconfig",
