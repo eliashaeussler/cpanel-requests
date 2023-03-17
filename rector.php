@@ -21,32 +21,22 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+use EliasHaeussler\RectorConfig\Config\Config;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
-use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
-use Rector\PHPUnit\Set\PHPUnitLevelSetList;
-use Rector\Set\ValueObject\LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import('vendor/eliashaeussler/rector-config/rector.dist.php');
-
-    $rectorConfig->paths([
-        __DIR__.'/src',
-        __DIR__.'/tests',
-    ]);
-
-    $rectorConfig->skip([
-        AddLiteralSeparatorToNumberRector::class,
-        AnnotationToAttributeRector::class => [
-            __DIR__.'/src/Application/Authorization/HttpAuthorization.php',
-        ],
-    ]);
-
-    $rectorConfig->phpVersion(PhpVersion::PHP_81);
-
-    $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_81,
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_100,
-    ]);
+    Config::create($rectorConfig)
+        ->in(
+            __DIR__.'/src',
+            __DIR__.'/tests',
+        )
+        ->skip(
+            AnnotationToAttributeRector::class,
+            [
+                __DIR__.'/src/Application/Authorization/HttpAuthorization.php',
+            ],
+        )
+        ->apply()
+    ;
 };
