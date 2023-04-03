@@ -4890,16 +4890,16 @@
         },
         {
             "name": "spomky-labs/otphp",
-            "version": "11.1.0",
+            "version": "11.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/otphp.git",
-                "reference": "4849ac1aa560bfc56c0d1534b0d72532da4665ab"
+                "reference": "9a1569038bb1c8e98040b14b8bcbba54f25e7795"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/otphp/zipball/4849ac1aa560bfc56c0d1534b0d72532da4665ab",
-                "reference": "4849ac1aa560bfc56c0d1534b0d72532da4665ab",
+                "url": "https://api.github.com/repos/Spomky-Labs/otphp/zipball/9a1569038bb1c8e98040b14b8bcbba54f25e7795",
+                "reference": "9a1569038bb1c8e98040b14b8bcbba54f25e7795",
                 "shasum": ""
             },
             "require": {
@@ -4917,7 +4917,7 @@
                 "phpstan/phpstan-strict-rules": "^1.0",
                 "phpunit/phpunit": "^9.5.26",
                 "qossmic/deptrac-shim": "^1.0",
-                "rector/rector": "^0.14",
+                "rector/rector": "^0.15",
                 "symfony/phpunit-bridge": "^6.1",
                 "symplify/easy-coding-standard": "^11.0"
             },
@@ -4954,7 +4954,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/otphp/issues",
-                "source": "https://github.com/Spomky-Labs/otphp/tree/11.1.0"
+                "source": "https://github.com/Spomky-Labs/otphp/tree/11.2.0"
             },
             "funding": [
                 {
@@ -4966,7 +4966,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-11-11T12:57:17+00:00"
+            "time": "2023-03-16T19:16:25+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
