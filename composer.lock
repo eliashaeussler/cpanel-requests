@@ -2134,16 +2134,16 @@
         },
         {
             "name": "eliashaeussler/rector-config",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/rector-config.git",
-                "reference": "b0e12929af8e4dff79e2c6195f187580c6ccd431"
+                "reference": "87a316eb58efe53876923b4fff7b87cd8b6d2b7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/b0e12929af8e4dff79e2c6195f187580c6ccd431",
-                "reference": "b0e12929af8e4dff79e2c6195f187580c6ccd431",
+                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/87a316eb58efe53876923b4fff7b87cd8b6d2b7c",
+                "reference": "87a316eb58efe53876923b4fff7b87cd8b6d2b7c",
                 "shasum": ""
             },
             "require": {
@@ -2183,9 +2183,9 @@
             "description": "My personal configuration for Rector",
             "support": {
                 "issues": "https://github.com/eliashaeussler/rector-config/issues",
-                "source": "https://github.com/eliashaeussler/rector-config/tree/1.1.0"
+                "source": "https://github.com/eliashaeussler/rector-config/tree/1.1.1"
             },
-            "time": "2023-03-17T20:47:06+00:00"
+            "time": "2023-04-09T15:26:54+00:00"
         },
         {
             "name": "ergebnis/composer-normalize",
@@ -3191,16 +3191,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.8",
+            "version": "1.10.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9"
+                "reference": "8aa62e6ea8b58ffb650e02940e55a788cbc3fe21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0166aef76e066f0dd2adc2799bdadfa1635711e9",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8aa62e6ea8b58ffb650e02940e55a788cbc3fe21",
+                "reference": "8aa62e6ea8b58ffb650e02940e55a788cbc3fe21",
                 "shasum": ""
             },
             "require": {
@@ -3249,7 +3249,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-24T10:28:16+00:00"
+            "time": "2023-04-04T19:17:42+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -3920,16 +3920,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.15.21",
+            "version": "0.15.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "1cee8cc5d6d836e1bf9a3006d7b062adde3a6022"
+                "reference": "716473919bcfdc27bdd2a32afb72adbf4c224e59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/1cee8cc5d6d836e1bf9a3006d7b062adde3a6022",
-                "reference": "1cee8cc5d6d836e1bf9a3006d7b062adde3a6022",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/716473919bcfdc27bdd2a32afb72adbf4c224e59",
+                "reference": "716473919bcfdc27bdd2a32afb72adbf4c224e59",
                 "shasum": ""
             },
             "require": {
@@ -3969,7 +3969,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.21"
+                "source": "https://github.com/rectorphp/rector/tree/0.15.24"
             },
             "funding": [
                 {
@@ -3977,7 +3977,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-06T11:44:29+00:00"
+            "time": "2023-04-05T08:49:11+00:00"
         },
         {
             "name": "sebastian/cli-parser",
