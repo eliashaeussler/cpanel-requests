@@ -36,7 +36,7 @@ jobs:
         run: composer-require-checker check
       - name: Reset composer.json
         run: |
-          git checkout composer.json
+          git checkout composer.*
           composer install --no-progress
       - name: Check for unused dependencies
         run: composer-unused
