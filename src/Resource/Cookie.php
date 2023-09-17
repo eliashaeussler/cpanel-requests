@@ -41,9 +41,7 @@ final class Cookie
 
     private const COOKIE_DIRECTORY = 'temp/cookies';
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function create(): File
     {

@@ -68,7 +68,7 @@ final class WebSession
      * @throws Exception\InvalidResponseDataException
      * @throws Exception\RequestFailedException
      */
-    public function start(string $username, string $password, ?string $otp = null): void
+    public function start(string $username, string $password, string $otp = null): void
     {
         // Build request object
         $request = new Http\Request\ApiRequest($this->baseUri, 'login');
