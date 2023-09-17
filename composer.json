@@ -33,7 +33,7 @@
         "ergebnis/composer-normalize": "^2.28",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan-phpunit": "^1.1",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "^10.3",
         "spomky-labs/otphp": "^11.1",
         "thecodingmachine/safe": "^2.0"
     },
@@ -83,7 +83,7 @@
             "@sca:php"
         ],
         "sca:php": "phpstan analyse -c phpstan.neon",
-        "test": "phpunit -c phpunit.xml",
-        "test:coverage": "phpunit -c phpunit.coverage.xml"
+        "test": "@test:coverage --no-coverage",
+        "test:coverage": "phpunit -c phpunit.xml"
     }
 }
