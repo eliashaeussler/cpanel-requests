@@ -21,7 +21,9 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-return \EliasHaeussler\PHPStanConfig\Config\Config::create(__DIR__)
+use EliasHaeussler\PHPStanConfig;
+
+return PHPStanConfig\Config\Config::create(__DIR__)
     ->in(
         'src',
         'tests',
