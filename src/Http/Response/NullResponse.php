@@ -35,8 +35,7 @@ final class NullResponse implements ResponseInterface
 {
     public function __construct(
         private readonly PsrResponse $response,
-    ) {
-    }
+    ) {}
 
     public static function supports(PsrResponse $response): bool
     {

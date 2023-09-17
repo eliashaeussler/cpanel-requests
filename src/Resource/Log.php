@@ -38,9 +38,7 @@ final class Log
 {
     private const LOG_DIRECTORY = 'temp/logs';
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function create(): File
     {

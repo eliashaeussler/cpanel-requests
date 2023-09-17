@@ -41,8 +41,7 @@ final class ApiRequest
         private readonly string $module,
         private readonly ?string $function = null,
         private array $parameters = [],
-    ) {
-    }
+    ) {}
 
     public function getBaseUri(): Message\UriInterface
     {

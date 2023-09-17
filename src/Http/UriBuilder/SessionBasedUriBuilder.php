@@ -43,8 +43,7 @@ final class SessionBasedUriBuilder implements UriBuilderInterface
 {
     public function __construct(
         private readonly Application\Session\WebSession $session,
-    ) {
-    }
+    ) {}
 
     public function buildUriForRequest(Http\Request\ApiRequest $request): Message\UriInterface
     {
