@@ -6,7 +6,7 @@ declare(strict_types=1);
 /*
  * This file is part of the Composer package "eliashaeussler/cpanel-requests".
  *
- * Copyright (C) 2023 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2020-2024 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ foreach ([__DIR__.'/../../../autoload.php', __DIR__.'/../../vendor/autoload.php'
     }
 }
 if (!class_exists('Composer\\Autoload\\ClassLoader')) {
-    throw new \RuntimeException('Could not locate Composer autoloader.', 1593550498);
+    throw new RuntimeException('Could not locate Composer autoloader.', 1593550498);
 }
 
 use EliasHaeussler\CpanelRequests\Command\CleanupCookiesCommand;
