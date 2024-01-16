@@ -27,7 +27,7 @@
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5",
 		"donatj/mock-webserver": "^2.4",
-		"eliashaeussler/php-cs-fixer-config": "^1.1",
+		"eliashaeussler/php-cs-fixer-config": "^2.0",
 		"eliashaeussler/phpstan-config": "^2.0",
 		"eliashaeussler/rector-config": "^2.0",
 		"ergebnis/composer-normalize": "^2.28",
