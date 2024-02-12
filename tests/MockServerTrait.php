@@ -123,7 +123,7 @@ trait MockServerTrait
         string|array $body,
         array $headers = [],
         int $statusCode = 200,
-        string $requestPath = null,
+        ?string $requestPath = null,
     ): MockWebServer\Response {
         if (is_array($body)) {
             $body = json_encode($body, JSON_THROW_ON_ERROR);
