@@ -25,12 +25,11 @@ namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
 
 use EliasHaeussler\CpanelRequests\Application;
 use EliasHaeussler\CpanelRequests\Exception;
+use EliasHaeussler\CpanelRequests\Helper;
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
 
-use function array_filter;
 use function http_build_query;
-use function implode;
 use function ltrim;
 
 /**
@@ -51,14 +50,12 @@ final class SessionBasedUriBuilder implements UriBuilderInterface
             throw Exception\SessionException::forInactiveSession();
         }
 
-        $basePath = $request->getBaseUri()->getPath();
-        $pathSegments = array_merge(explode('/', $basePath), [
+        $path = Helper\UriHelper::mergePathSegments($request->getBaseUri(), [
             $this->session->getIdentifier(),
             'execute',
             $request->getModule(),
             $request->getFunction(),
         ]);
-        $path = implode('/', array_filter($pathSegments));
 
         parse_str($request->getBaseUri()->getQuery(), $queryParams);
 

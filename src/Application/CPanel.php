@@ -60,6 +60,8 @@ final class CPanel
     }
 
     /**
+     * @param non-empty-string     $module
+     * @param non-empty-string     $function
      * @param array<string, mixed> $parameters
      *
      * @see https://api.docs.cpanel.net/cpanel/introduction

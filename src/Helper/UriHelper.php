@@ -21,35 +21,38 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
+namespace EliasHaeussler\CpanelRequests\Helper;
 
-use EliasHaeussler\CpanelRequests\Helper;
-use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
 
-use function ltrim;
+use function is_scalar;
+use function trim;
 
 /**
- * TokenBasedUriBuilder.
+ * UriHelper.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-final class TokenBasedUriBuilder implements UriBuilderInterface
+final class UriHelper
 {
-    public function buildUriForRequest(Http\Request\ApiRequest $request): Message\UriInterface
+    /**
+     * @param list<mixed> $paths
+     */
+    public static function mergePathSegments(Message\UriInterface $uri, array $paths): string
     {
-        $path = Helper\UriHelper::mergePathSegments($request->getBaseUri(), [
-            'execute',
-            $request->getModule(),
-            $request->getFunction(),
-        ]);
+        $basePath = $uri->getPath();
+        $pathSegments = [...explode('/', $basePath), ...$paths];
 
-        parse_str($request->getBaseUri()->getQuery(), $queryParams);
+        return implode('/', array_filter($pathSegments, self::isValidPathSegment(...)));
+    }
 
-        return $request->getBaseUri()
-            ->withPath('/'.ltrim($path, '/'))
-            ->withQuery(http_build_query($queryParams + $request->getParameters()))
-        ;
+    private static function isValidPathSegment(mixed $pathSegment): bool
+    {
+        if (!is_scalar($pathSegment)) {
+            return false;
+        }
+
+        return '' !== trim((string) $pathSegment);
     }
 }

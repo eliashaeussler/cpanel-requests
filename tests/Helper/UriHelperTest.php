@@ -21,35 +21,33 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
+namespace EliasHaeussler\CpanelRequests\Tests\Helper;
 
-use EliasHaeussler\CpanelRequests\Helper;
-use EliasHaeussler\CpanelRequests\Http;
-use Psr\Http\Message;
-
-use function ltrim;
+use EliasHaeussler\CpanelRequests as Src;
+use GuzzleHttp\Psr7;
+use PHPUnit\Framework;
+use stdClass;
 
 /**
- * TokenBasedUriBuilder.
+ * UriHelperTest.
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-3.0-or-later
  */
-final class TokenBasedUriBuilder implements UriBuilderInterface
+#[Framework\Attributes\CoversClass(Src\Helper\UriHelper::class)]
+final class UriHelperTest extends Framework\TestCase
 {
-    public function buildUriForRequest(Http\Request\ApiRequest $request): Message\UriInterface
+    #[Framework\Attributes\Test]
+    public static function mergePathSegmentsMergesUriPathWithGivenPathSegments(): void
     {
-        $path = Helper\UriHelper::mergePathSegments($request->getBaseUri(), [
-            'execute',
-            $request->getModule(),
-            $request->getFunction(),
-        ]);
+        $uri = new Psr7\Uri('https://www.example.com/a/long/url');
+        $paths = [
+            'foo',
+            new stdClass(),
+            null,
+            5,
+        ];
 
-        parse_str($request->getBaseUri()->getQuery(), $queryParams);
-
-        return $request->getBaseUri()
-            ->withPath('/'.ltrim($path, '/'))
-            ->withQuery(http_build_query($queryParams + $request->getParameters()))
-        ;
+        self::assertSame('a/long/url/foo/5', Src\Helper\UriHelper::mergePathSegments($uri, $paths));
     }
 }

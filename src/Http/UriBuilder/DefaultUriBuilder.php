@@ -23,14 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\CpanelRequests\Http\UriBuilder;
 
+use EliasHaeussler\CpanelRequests\Helper;
 use EliasHaeussler\CpanelRequests\Http;
 use Psr\Http\Message;
 
-use function array_filter;
-use function array_merge;
-use function explode;
 use function http_build_query;
-use function implode;
 use function ltrim;
 use function parse_str;
 
@@ -44,12 +41,10 @@ final class DefaultUriBuilder implements UriBuilderInterface
 {
     public function buildUriForRequest(Http\Request\ApiRequest $request): Message\UriInterface
     {
-        $basePath = $request->getBaseUri()->getPath();
-        $pathSegments = array_merge(explode('/', $basePath), [
+        $path = Helper\UriHelper::mergePathSegments($request->getBaseUri(), [
             $request->getModule(),
             $request->getFunction(),
         ]);
-        $path = implode('/', array_filter($pathSegments));
 
         parse_str($request->getBaseUri()->getQuery(), $queryParams);
 
