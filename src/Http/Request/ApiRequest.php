@@ -34,7 +34,9 @@ use Psr\Http\Message;
 final class ApiRequest
 {
     /**
-     * @param array<string, mixed> $parameters
+     * @param non-empty-string      $module
+     * @param non-empty-string|null $function
+     * @param array<string, mixed>  $parameters
      */
     public function __construct(
         private readonly Message\UriInterface $baseUri,
@@ -48,11 +50,17 @@ final class ApiRequest
         return $this->baseUri;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getModule(): string
     {
         return $this->module;
     }
 
+    /**
+     * @return non-empty-string|null
+     */
     public function getFunction(): ?string
     {
         return $this->function;
