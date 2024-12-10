@@ -32,7 +32,7 @@
 		"eliashaeussler/rector-config": "^3.0",
 		"ergebnis/composer-normalize": "^2.28",
 		"phpstan/extension-installer": "^1.2",
-		"phpstan/phpstan-phpunit": "^1.1",
+		"phpstan/phpstan-phpunit": "^2.0",
 		"phpunit/phpunit": "^10.3 || ^11.0",
 		"spomky-labs/otphp": "^11.1",
 		"thecodingmachine/safe": "^2.0"
