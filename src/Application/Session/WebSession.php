@@ -33,6 +33,8 @@ use GuzzleHttp\RequestOptions;
 use Psr\Http\Client;
 use Psr\Http\Message;
 
+use function is_string;
+
 /**
  * Representation of a web session of a single application.
  *
@@ -96,8 +98,15 @@ final class WebSession
             throw Exception\AuthenticationFailedException::create();
         }
 
+        $identifier = $response->getData()->{self::SESSION_TOKEN_PARAMETER};
+
+        // Throw exception if identifier is not valid
+        if (!is_string($identifier) && null !== $identifier) {
+            throw Exception\SessionException::forInvalidSessionIdentifier();
+        }
+
         $this->active = true;
-        $this->identifier = $response->getData()->{self::SESSION_TOKEN_PARAMETER};
+        $this->identifier = $identifier;
 
         $this->validateIdentifier();
     }
