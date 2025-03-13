@@ -1,0 +1,10 @@
+name: Pull Request
+on: [pull_request]
+
+jobs:
+  trigger-cgl:
+    if: github.repository_owner != 'eliashaeussler'
+    uses: ./.github/workflows/cgl.yaml
+  trigger-tests:
+    if: github.repository_owner != 'eliashaeussler'
+    uses: ./.github/workflows/tests.yaml
