@@ -3,10 +3,31 @@ on:
   push:
     branches:
       - '**'
+  pull_request:
+    branches:
+      - main
 
 jobs:
+  prepare:
+    name: Prepare workflow
+    runs-on: ubuntu-latest
+    outputs:
+      continue: ${{ steps.continue.outputs.continue }}
+    steps:
+      - id: continue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (context.eventName === 'pull_request') {
+              core.setOutput('continue', context.payload.pull_request.head.repo.owner.login !== 'eliashaeussler');
+            } else {
+              core.setOutput('continue', true);
+            }
+
   cgl:
     runs-on: ubuntu-latest
+    needs: prepare
+    if: needs.prepare.outputs.continue == 'true'
     steps:
       - uses: actions/checkout@v4
         with:
