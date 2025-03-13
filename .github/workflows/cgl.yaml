@@ -1,8 +1,11 @@
 name: CGL
+run-name: CGL
+
 on:
   push:
     branches:
       - '**'
+  workflow_call:
 
 jobs:
   cgl:
