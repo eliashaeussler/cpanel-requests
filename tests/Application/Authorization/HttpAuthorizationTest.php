@@ -100,7 +100,6 @@ final class HttpAuthorizationTest extends Tests\MockServerAwareTestCase
         $loginRequest = self::getMockServer()->getRequestByOffset(0);
 
         self::assertInstanceOf(MockWebServer\RequestInfo::class, $loginRequest);
-        self::assertIsArray($loginRequest->getParsedUri());
         self::assertSame('login_only=1&user=foo&pass=bar&tfa_token='.$otp, $loginRequest->getParsedUri()['query']);
     }
 }
