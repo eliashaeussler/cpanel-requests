@@ -54,6 +54,7 @@ trait MockServerTrait
 
         self::assertTrue(self::$mockServer->isRunning());
 
+        /* @phpstan-ignore return.type (until https://github.com/phpstan/phpstan-phpunit/issues/229 is fixed) */
         return self::$mockServer;
     }
 
