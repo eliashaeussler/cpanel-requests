@@ -3,6 +3,7 @@
 	"description": "Small PHP library enabling requests to cPanel instances",
 	"license": "GPL-3.0-or-later",
 	"type": "library",
+	"abandoned": true,
 	"authors": [
 		{
 			"name": "Elias Häußler",
