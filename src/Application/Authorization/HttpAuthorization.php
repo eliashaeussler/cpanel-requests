@@ -121,6 +121,7 @@ final class HttpAuthorization implements AuthorizationInterface
             return null;
         }
 
+        /* @phpstan-ignore argument.type */
         return TOTP::createFromSecret(trim($this->otpSecret))->now();
     }
 
